@@ -1,15 +1,9 @@
-abstract class Question {
-  final String _id;
-  final String _question;
-
-  const Question({
-    required id,
-    required question,
-  })   : _question = question,
-        _id = id;
-
+abstract class RawQuestionData {
   String get id;
+}
 
+abstract class QuestionData implements RawQuestionData {
+  String get id;
   String get question;
 }
 
@@ -27,12 +21,12 @@ class AnswerChoice {
   bool get isCorrect => _isCorrect;
 }
 
-class MultipleChoiceQuestion implements Question {
+class MultipleChoiceQuestionData implements QuestionData {
   final String _id;
   final String _question;
   final List<AnswerChoice> _choices;
 
-  const MultipleChoiceQuestion({
+  const MultipleChoiceQuestionData({
     required id,
     required question,
     required choices,
@@ -45,14 +39,16 @@ class MultipleChoiceQuestion implements Question {
   String get question => _question;
 
   List<AnswerChoice> get choices => _choices;
+
+  bool isCorrect(AnswerChoice answerChoice) => answerChoice.isCorrect;
 }
 
-class DropdownQuestion implements Question {
+class DropdownQuestionData implements QuestionData {
   final String _id;
   final String _question;
   final List<AnswerChoice> _choices;
 
-  const DropdownQuestion({
+  const DropdownQuestionData({
     required id,
     required question,
     required choices,
@@ -65,14 +61,16 @@ class DropdownQuestion implements Question {
   String get question => _question;
 
   List<AnswerChoice> get choices => _choices;
+
+  bool isCorrect(AnswerChoice answerChoice) => answerChoice.isCorrect;
 }
 
-class TrueFalseQuestion implements Question {
+class TrueFalseQuestionData implements QuestionData {
   final String _id;
   final String _question;
   final bool _answer;
 
-  const TrueFalseQuestion({
+  const TrueFalseQuestionData({
     required id,
     required question,
     required answer,
@@ -85,14 +83,16 @@ class TrueFalseQuestion implements Question {
   String get question => _question;
 
   bool get answer => _answer;
+
+  bool isCorrect(bool answer) => answer == _answer;
 }
 
-class FillInTheBlankQuestion implements Question {
+class FillInTheBlankQuestionData implements QuestionData {
   final String _id;
   final String _question;
   final String _answer;
 
-  const FillInTheBlankQuestion({
+  const FillInTheBlankQuestionData({
     required String id,
     required String question,
     required String answer,
@@ -107,16 +107,18 @@ class FillInTheBlankQuestion implements Question {
   String get answer => _answer;
 }
 
-class MatchingAnswerChoices {
+class MatchingAnswerChoices implements RawQuestionData {
   final String _id;
   final String _first;
   final String _second;
 
-  const MatchingAnswerChoices(
-    this._first,
-    this._second, {
+  const MatchingAnswerChoices({
+    required String first,
+    required String second,
     required String id,
-  }) : _id = id;
+  })   : _id = id,
+        _first = first,
+        _second = second;
 
   String get id => _id;
 
@@ -129,12 +131,33 @@ class MatchingAnswerChoices {
   }
 }
 
-class MatchingQuestion {
+class MatchingQuestionData {
   final List<MatchingAnswerChoices> _choices;
 
-  const MatchingQuestion({
+  const MatchingQuestionData({
     required List<MatchingAnswerChoices> choices,
   }) : _choices = choices;
 
   List<MatchingAnswerChoices> get choices => _choices;
+
+  Iterator<MatchingAnswerChoices> get getIterator => _choices.iterator;
+}
+
+class AnsweredMultipleChoiceQuestion {
+  final String _id;
+  final AnswerChoice _picked;
+  final bool _correct;
+  AnsweredMultipleChoiceQuestion({
+    required String id,
+    required AnswerChoice picked,
+    required bool correct,
+  })   : _id = id,
+        _picked = picked,
+        _correct = correct;
+
+  String get id => _id;
+
+  AnswerChoice get picked => _picked;
+
+  bool get isCorrect => _correct;
 }
