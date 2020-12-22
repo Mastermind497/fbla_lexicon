@@ -1,25 +1,7 @@
-abstract class RawQuestionData {
-  String get id;
-}
+import 'question_foundation.dart';
 
-abstract class QuestionData implements RawQuestionData {
-  String get id;
-  String get question;
-}
-
-class AnswerChoice {
-  final String _content;
-  final bool _isCorrect;
-
-  const AnswerChoice(
-    this._content, [
-    this._isCorrect = false,
-  ]);
-
-  String get content => _content;
-
-  bool get isCorrect => _isCorrect;
-}
+export 'answered_questions.dart';
+export 'question_foundation.dart';
 
 class MultipleChoiceQuestionData implements QuestionData {
   final String _id;
@@ -141,23 +123,4 @@ class MatchingQuestionData {
   List<MatchingAnswerChoices> get choices => _choices;
 
   Iterator<MatchingAnswerChoices> get getIterator => _choices.iterator;
-}
-
-class AnsweredMultipleChoiceQuestion {
-  final String _id;
-  final AnswerChoice _picked;
-  final bool _correct;
-  AnsweredMultipleChoiceQuestion({
-    required String id,
-    required AnswerChoice picked,
-    required bool correct,
-  })   : _id = id,
-        _picked = picked,
-        _correct = correct;
-
-  String get id => _id;
-
-  AnswerChoice get picked => _picked;
-
-  bool get isCorrect => _correct;
 }
