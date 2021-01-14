@@ -1,7 +1,7 @@
-import 'question_foundation.dart';
+import 'question_data/question_foundation.dart';
 
-export 'answered_questions.dart';
-export 'question_foundation.dart';
+export 'question_data/answered_questions.dart';
+export 'question_data/question_foundation.dart';
 
 class MultipleChoiceQuestionData implements QuestionData {
   final String _id;
