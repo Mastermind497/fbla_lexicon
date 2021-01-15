@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'question_data/question_foundation.dart';
 
 export 'question_data/answered_questions.dart';
@@ -9,10 +10,10 @@ class MultipleChoiceQuestionData implements QuestionData {
   final List<AnswerChoice> _choices;
 
   const MultipleChoiceQuestionData({
-    required id,
-    required question,
-    required choices,
-  })   : _question = question,
+    @required id,
+    @required question,
+    @required choices,
+  })  : _question = question,
         _choices = choices,
         _id = id;
 
@@ -31,10 +32,10 @@ class DropdownQuestionData implements QuestionData {
   final List<AnswerChoice> _choices;
 
   const DropdownQuestionData({
-    required id,
-    required question,
-    required choices,
-  })   : _question = question,
+    @required id,
+    @required question,
+    @required choices,
+  })  : _question = question,
         _choices = choices,
         _id = id;
 
@@ -53,10 +54,10 @@ class TrueFalseQuestionData implements QuestionData {
   final bool _answer;
 
   const TrueFalseQuestionData({
-    required id,
-    required question,
-    required answer,
-  })   : _question = question,
+    @required id,
+    @required question,
+    @required answer,
+  })  : _question = question,
         _answer = answer,
         _id = id;
 
@@ -75,10 +76,10 @@ class FillInTheBlankQuestionData implements QuestionData {
   final String _answer;
 
   const FillInTheBlankQuestionData({
-    required String id,
-    required String question,
-    required String answer,
-  })   : _question = question,
+    @required String id,
+    @required String question,
+    @required String answer,
+  })  : _question = question,
         _answer = answer,
         _id = id;
 
@@ -95,10 +96,10 @@ class MatchingAnswerChoices implements RawQuestionData {
   final String _second;
 
   const MatchingAnswerChoices({
-    required String first,
-    required String second,
-    required String id,
-  })   : _id = id,
+    @required String first,
+    @required String second,
+    @required String id,
+  })  : _id = id,
         _first = first,
         _second = second;
 
@@ -117,7 +118,7 @@ class MatchingQuestionData {
   final List<MatchingAnswerChoices> _choices;
 
   const MatchingQuestionData({
-    required List<MatchingAnswerChoices> choices,
+    @required List<MatchingAnswerChoices> choices,
   }) : _choices = choices;
 
   List<MatchingAnswerChoices> get choices => _choices;

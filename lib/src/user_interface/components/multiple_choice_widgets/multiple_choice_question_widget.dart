@@ -6,7 +6,7 @@ import 'multiple_choice_answer_choices_widget.dart';
 
 class MultipleChoiceQuestionWidget extends StatelessWidget {
   final MultipleChoiceQuestionData data;
-  final int? questionNumber;
+  final int questionNumber;
 
   static const double spaceMultiplier = 0.01;
   static const double questionSize = 0.3;

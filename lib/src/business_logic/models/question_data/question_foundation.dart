@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class RawQuestionData {
@@ -22,8 +23,8 @@ class AnswerChoice extends Equatable {
   const AnswerChoice(
     this._content, {
     bool isCorrect = false,
-    required String id,
-  })   : this._id = id,
+    @required String id,
+  })  : this._id = id,
         this._isCorrect = isCorrect;
 
   @override

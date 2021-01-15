@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'question_foundation.dart';
 
 class AnsweredMultipleChoiceQuestion implements AnsweredQuestion {
@@ -6,10 +7,10 @@ class AnsweredMultipleChoiceQuestion implements AnsweredQuestion {
   final AnswerChoice _correctAnswer;
 
   const AnsweredMultipleChoiceQuestion({
-    required String id,
-    required AnswerChoice picked,
-    required AnswerChoice correctAnswer,
-  })   : _id = id,
+    @required String id,
+    @required AnswerChoice picked,
+    @required AnswerChoice correctAnswer,
+  })  : _id = id,
         _picked = picked,
         _correctAnswer = correctAnswer;
 
@@ -26,10 +27,10 @@ class AnsweredDropdownQuestion implements AnsweredQuestion {
   final AnswerChoice _correctAnswer;
 
   const AnsweredDropdownQuestion({
-    required String id,
-    required AnswerChoice picked,
-    required AnswerChoice correctAnswer,
-  })   : _id = id,
+    @required String id,
+    @required AnswerChoice picked,
+    @required AnswerChoice correctAnswer,
+  })  : _id = id,
         _picked = picked,
         _correctAnswer = correctAnswer;
 
@@ -46,10 +47,10 @@ class AnsweredTrueFalseQuestion implements AnsweredQuestion {
   final bool _correctAnswer;
 
   const AnsweredTrueFalseQuestion({
-    required String id,
-    required bool picked,
-    required bool correctAnswer,
-  })   : _id = id,
+    @required String id,
+    @required bool picked,
+    @required bool correctAnswer,
+  })  : _id = id,
         _picked = picked,
         _correctAnswer = correctAnswer;
 
@@ -66,10 +67,10 @@ class AnsweredFillInTheBlankQuestion implements AnsweredQuestion {
   final String _correctAnswer;
 
   const AnsweredFillInTheBlankQuestion({
-    required String id,
-    required String picked,
-    required String correctAnswer,
-  })   : _id = id,
+    @required String id,
+    @required String picked,
+    @required String correctAnswer,
+  })  : _id = id,
         _picked = picked,
         _correctAnswer = correctAnswer;
 
@@ -87,11 +88,11 @@ class AnsweredMatchingAnswerChoices implements AnsweredQuestion {
   final String _second;
 
   const AnsweredMatchingAnswerChoices({
-    required String id,
-    required String picked,
-    required String first,
-    required String second,
-  })   : _id = id,
+    @required String id,
+    @required String picked,
+    @required String first,
+    @required String second,
+  })  : _id = id,
         _picked = picked,
         _first = first,
         _second = second;

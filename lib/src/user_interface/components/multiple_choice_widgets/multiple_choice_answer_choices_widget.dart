@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-import '../question_widgets.dart';
 import '../../../user_interface/theme/style.dart';
 import '../../../business_logic/models/question.dart';
-import 'multiple_choice_question_widget.dart';
+import 'multiple_choice_answer_widget.dart';
 
 class MultipleChoiceAnswerChoicesWidget extends StatefulWidget {
   final List<AnswerChoice> choices;
 
-  static final EdgeInsets padding = MultipleChoiceQuestionWidget.padding;
+  static final EdgeInsets padding = EdgeInsets.all(10); // MultipleChoiceQuestionWidget.padding;
 
   MultipleChoiceAnswerChoicesWidget(this.choices);
 
@@ -54,49 +53,17 @@ class _MultipleChoiceAnswerChoicesWidgetState extends State<MultipleChoiceAnswer
         nowColored.add(choice);
       }
     }
+
+    setState(() {
+      answerChoices.clear();
+      answerChoices.addAll(nowColored);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [...answerChoices],
-    );
-  }
-}
-
-class MultipleChoiceAnswerWidget extends StatelessWidget {
-  final AnswerChoice choice;
-  final EdgeInsets padding;
-  final Function onTap;
-  final Color color;
-
-  static const double spaceMultiplier = MultipleChoiceQuestionWidget.spaceMultiplier;
-  static final BorderRadius br = MultipleChoiceQuestionWidget.br;
-
-  MultipleChoiceAnswerWidget(this.choice, this.padding, this.onTap, [this.color = Colors.white]);
-
-  @override
-  Widget build(BuildContext context) {
-    final MediaQueryData mq = MediaQuery.of(context);
-
-    return Expanded(
-      child: Padding(
-        padding: padding,
-        child: Card(
-          shape: RoundedRectangleBorder(borderRadius: br),
-          child: InkWell(
-            splashColor: (choice.isCorrect ? correctColor : incorrectColor),
-            onTap: () => onTap(choice),
-            borderRadius: br,
-            child: Container(
-              width: mq.size.width,
-              child: Text(
-                choice.content,
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
