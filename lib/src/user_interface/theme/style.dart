@@ -24,9 +24,15 @@ TextStyle questionStyleB = TextStyle(
 );
 
 Color fblaBlue = createMaterialColor(Color.fromRGBO(0, 82, 155, 1));
-
 Color fblaRed = createMaterialColor(Color.fromRGBO(190, 44, 55, 1));
-
 Color correctColor = createMaterialColor(Color.fromRGBO(6, 214, 160, 1));
-
 Color incorrectColor = fblaRed;
+
+const double spaceMultiplier = 0.01;
+const double questionSize = 0.3;
+final BorderRadius borderRadius = BorderRadius.circular(15);
+
+EdgeInsets createPadding(BuildContext context) => EdgeInsets.symmetric(
+      horizontal: MediaQuery.of(context).size.width * spaceMultiplier,
+      vertical: MediaQuery.of(context).size.height * spaceMultiplier / 10,
+    );
