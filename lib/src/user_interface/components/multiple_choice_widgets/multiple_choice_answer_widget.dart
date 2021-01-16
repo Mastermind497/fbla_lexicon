@@ -2,34 +2,28 @@ import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
 import '../../theme/style.dart';
-import 'multiple_choice_question_widget.dart';
 
 class MultipleChoiceAnswerWidget extends StatelessWidget {
   final AnswerChoice choice;
-  final EdgeInsets padding;
-  final Function onTap;
+  final void Function(AnswerChoice) onTap;
   final Color color;
 
-  static const double spaceMultiplier = MultipleChoiceQuestionWidget.spaceMultiplier;
-  static final BorderRadius br = MultipleChoiceQuestionWidget.br;
-
-  MultipleChoiceAnswerWidget(this.choice, this.padding, this.onTap, [this.color = Colors.white]);
+  MultipleChoiceAnswerWidget(this.choice, this.onTap, [this.color = Colors.white]);
 
   @override
   Widget build(BuildContext context) {
-    final MediaQueryData mq = MediaQuery.of(context);
-
     return Expanded(
       child: Padding(
-        padding: padding,
+        padding: createPadding(context),
         child: Card(
-          shape: RoundedRectangleBorder(borderRadius: br),
+          shape: RoundedRectangleBorder(borderRadius: borderRadius),
+          color: color,
           child: InkWell(
-            splashColor: (choice.isCorrect ? correctColor : incorrectColor),
+            splashColor: fblaBlue,
             onTap: () => onTap(choice),
-            borderRadius: br,
+            borderRadius: borderRadius,
             child: Container(
-              width: mq.size.width,
+              width: MediaQuery.of(context).size.width,
               child: Text(
                 choice.content,
               ),
