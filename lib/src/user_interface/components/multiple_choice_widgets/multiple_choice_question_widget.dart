@@ -6,8 +6,9 @@ import '../../../business_logic/models/question.dart';
 class MultipleChoiceQuestionWidget extends StatelessWidget {
   final MultipleChoiceQuestionData data;
   final int questionNumber;
+  final Function previous, next;
 
-  MultipleChoiceQuestionWidget(this.data, this.questionNumber);
+  MultipleChoiceQuestionWidget(this.data, this.questionNumber, {this.previous, this.next});
 
   Widget _generateQuestion(BuildContext context) {
     final MediaQueryData mq = MediaQuery.of(context);
@@ -20,19 +21,37 @@ class MultipleChoiceQuestionWidget extends StatelessWidget {
       width: mq.size.width,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            if (questionNumber != null)
-              Text(
-                "Question $questionNumber",
-                style: questionStyleA,
-              ),
-            if (questionNumber != null)
-              SizedBox(
-                height: MediaQuery.of(context).size.height * spaceMultiplier,
-              ),
-            Text(data.question, style: questionStyleB),
+            IconButton(
+              icon: Icon(Icons.arrow_back_ios_rounded),
+              onPressed: previous,
+              color: Theme.of(context).primaryColor,
+              splashRadius: Material.defaultSplashRadius - 10,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (questionNumber != null)
+                  Text(
+                    "Question $questionNumber",
+                    style: questionStyleA,
+                  ),
+                if (questionNumber != null)
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * spaceMultiplier,
+                  ),
+                Text(data.question, style: questionStyleB),
+              ],
+            ),
+            IconButton(
+              icon: Icon(Icons.arrow_forward_ios_rounded),
+              onPressed: next,
+              color: Theme.of(context).primaryColor,
+              splashRadius: Material.defaultSplashRadius - 10,
+            ),
           ],
         ),
       ),
