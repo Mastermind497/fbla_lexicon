@@ -4,7 +4,7 @@ import 'question_data/question_foundation.dart';
 export 'question_data/answered_questions.dart';
 export 'question_data/question_foundation.dart';
 
-class MultipleChoiceQuestionData implements QuestionData {
+class MultipleChoiceQuestionData extends QuestionData {
   final String _id;
   final String _question;
   final List<AnswerChoice> _choices;
@@ -17,8 +17,10 @@ class MultipleChoiceQuestionData implements QuestionData {
         _choices = choices,
         _id = id;
 
+  @override
   String get id => _id;
 
+  @override
   String get question => _question;
 
   List<AnswerChoice> get choices => _choices;
@@ -26,7 +28,7 @@ class MultipleChoiceQuestionData implements QuestionData {
   bool isCorrect(AnswerChoice answerChoice) => answerChoice.isCorrect;
 }
 
-class DropdownQuestionData implements QuestionData {
+class DropdownQuestionData extends QuestionData {
   final String _id;
   final String _question;
   final List<AnswerChoice> _choices;
@@ -39,8 +41,10 @@ class DropdownQuestionData implements QuestionData {
         _choices = choices,
         _id = id;
 
+  @override
   String get id => _id;
 
+  @override
   String get question => _question;
 
   List<AnswerChoice> get choices => _choices;
@@ -48,7 +52,7 @@ class DropdownQuestionData implements QuestionData {
   bool isCorrect(AnswerChoice answerChoice) => answerChoice.isCorrect;
 }
 
-class TrueFalseQuestionData implements QuestionData {
+class TrueFalseQuestionData extends QuestionData {
   final String _id;
   final String _question;
   final bool _answer;
@@ -61,8 +65,10 @@ class TrueFalseQuestionData implements QuestionData {
         _answer = answer,
         _id = id;
 
+  @override
   String get id => _id;
 
+  @override
   String get question => _question;
 
   bool get answer => _answer;
@@ -70,7 +76,7 @@ class TrueFalseQuestionData implements QuestionData {
   bool isCorrect(bool answer) => answer == _answer;
 }
 
-class FillInTheBlankQuestionData implements QuestionData {
+class FillInTheBlankQuestionData extends QuestionData {
   final String _id;
   final String _question;
   final String _answer;
@@ -83,13 +89,16 @@ class FillInTheBlankQuestionData implements QuestionData {
         _answer = answer,
         _id = id;
 
+  @override
   String get id => _id;
 
+  @override
   String get question => _question;
 
   String get answer => _answer;
 }
 
+@deprecated
 class MatchingAnswerChoices implements RawQuestionData {
   final String _id;
   final String _first;
@@ -114,6 +123,7 @@ class MatchingAnswerChoices implements RawQuestionData {
   }
 }
 
+@deprecated
 class MatchingQuestionData {
   final List<MatchingAnswerChoices> _choices;
 

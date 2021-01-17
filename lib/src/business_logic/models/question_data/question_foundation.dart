@@ -13,6 +13,8 @@ abstract class AnsweredQuestion implements RawQuestionData {
 abstract class QuestionData implements RawQuestionData {
   String get id;
   String get question;
+
+  const QuestionData();
 }
 
 class AnswerChoice extends Equatable {
