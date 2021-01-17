@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 import '../../../business_logic/models/question.dart';
 import '../../theme/style.dart';
@@ -17,6 +18,7 @@ class MultipleChoiceAnswerWidget extends StatelessWidget {
         padding: createPadding(context),
         child: Card(
           shape: RoundedRectangleBorder(borderRadius: borderRadius),
+          margin: createMargin(context),
           color: color,
           child: InkWell(
             splashColor: fblaBlue,
@@ -24,8 +26,13 @@ class MultipleChoiceAnswerWidget extends StatelessWidget {
             borderRadius: borderRadius,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              child: Text(
-                choice.content,
+              child: Center(
+                child: AutoSizeText(
+                  choice.content,
+                  style: (color == Colors.white ? regularChoice : answeredChoice),
+                  maxLines: 3,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
