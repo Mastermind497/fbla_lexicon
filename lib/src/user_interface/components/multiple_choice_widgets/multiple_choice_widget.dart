@@ -44,6 +44,8 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
         answerChoices = choicesWidget.getAfterChosen;
       });
     });
+
+    print(widget.selected);
   }
 
   @override

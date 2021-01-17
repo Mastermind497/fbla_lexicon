@@ -35,4 +35,9 @@ class AnswerChoice extends Equatable {
   bool get isCorrect => _isCorrect;
 
   String get id => _id;
+
+  @override
+  String toString() {
+    return '$id (' + (isCorrect ? 'YES' : 'NO') + '): $content';
+  }
 }
