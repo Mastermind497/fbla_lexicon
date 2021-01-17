@@ -38,11 +38,10 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
 
   void updateChosen(AnswerChoice selected) {
     widget.selected = selected;
+    choicesWidget.selected = selected;
+    answerChoices = choicesWidget.getAfterChosen;
     Future.delayed(Duration(milliseconds: 155), () {
-      choicesWidget.selected = selected;
-      setState(() {
-        answerChoices = choicesWidget.getAfterChosen;
-      });
+      setState(() {});
     });
 
     print(widget.selected);
