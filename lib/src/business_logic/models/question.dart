@@ -101,9 +101,10 @@ class TrueFalseQuestionData extends QuestionData {
   @override
   String get question => _question;
 
-  bool get answer => _answer;
-
+  @override
   bool get isCorrect => chosen == _answer;
+
+  bool get answer => _answer;
 }
 
 class FillInTheBlankQuestionData extends QuestionData {
@@ -126,13 +127,12 @@ class FillInTheBlankQuestionData extends QuestionData {
   @override
   String get question => _question;
 
+  /// Checks if the answer is acceptable using Dice's coefficient, allowing up to
+  /// 25% inaccuracy to account for minor spelling mistakes.
+  @override
+  bool get isCorrect => _chosen.similarityTo(_answer) >= 0.75;
+
   String get answer => _answer;
 
   set chosen(String choice) => _chosen;
-
-  /// Checks if the answer is acceptable using Dice's coefficient, allowing up to
-  /// 25% inaccuracy to account for minor spelling mistakes.
-  bool get isCorrect {
-    return _chosen.similarityTo(_answer) >= 0.75;
-  }
 }
