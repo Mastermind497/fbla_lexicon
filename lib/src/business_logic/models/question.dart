@@ -10,7 +10,7 @@ class MultipleChoiceQuestionData extends QuestionData {
   final String _id;
   final String _question;
   final List<AnswerChoice> _choices;
-  AnswerChoice _selected;
+  AnswerChoice selected;
 
   MultipleChoiceQuestionData({
     @required id,
@@ -30,10 +30,6 @@ class MultipleChoiceQuestionData extends QuestionData {
   bool get isCorrect => selected.isCorrect;
 
   List<AnswerChoice> get choices => _choices;
-
-  set selected(AnswerChoice choice) => _selected = selected;
-
-  AnswerChoice get selected => _selected;
 }
 
 class MultipleResponseQuestionData extends QuestionData {
