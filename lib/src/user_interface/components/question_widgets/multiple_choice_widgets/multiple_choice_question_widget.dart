@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../../user_interface/theme/style.dart';
-import '../../../business_logic/models/question.dart';
+import '../../../../user_interface/theme/style.dart';
+import '../../../../business_logic/models/question.dart';
 
 class MultipleChoiceQuestionWidget extends StatelessWidget {
   final MultipleChoiceQuestionData data;

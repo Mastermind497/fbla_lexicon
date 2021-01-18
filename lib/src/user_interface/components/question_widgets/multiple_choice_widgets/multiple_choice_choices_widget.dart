@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/style.dart';
-import '../../../business_logic/models/question.dart';
+import '../../../theme/style.dart';
+import '../../../../business_logic/models/question.dart';
+
 import 'multiple_choice_answer_widget.dart';
 
 class MultipleChoiceChoicesWidget {

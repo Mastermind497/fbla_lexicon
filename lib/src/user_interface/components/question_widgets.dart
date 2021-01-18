@@ -1,1 +1,1 @@
-export 'multiple_choice_widgets/multiple_choice_widget.dart';
+export 'question_widgets/multiple_choice_widgets/multiple_choice_widget.dart';

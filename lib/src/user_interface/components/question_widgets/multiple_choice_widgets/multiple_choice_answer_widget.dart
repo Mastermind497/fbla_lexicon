@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
-import '../../../business_logic/models/question.dart';
-import '../../theme/style.dart';
+import '../../../../business_logic/models/question.dart';
+import '../../../theme/style.dart';
 
 class MultipleChoiceAnswerWidget extends StatelessWidget {
   final AnswerChoice choice;
