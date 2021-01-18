@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
 
-import '../../../../user_interface/theme/style.dart';
-import '../../../../business_logic/models/question.dart';
+import '../../../business_logic/models/question.dart';
+import '../../../user_interface/theme/style.dart';
 
-@deprecated
-class MultipleChoiceQuestionWidget extends StatelessWidget {
-  final MultipleChoiceQuestionData data;
+class QuestionDataWidget extends StatelessWidget {
+  final QuestionData data;
   final int questionNumber;
   final Function previous, next;
 
-  MultipleChoiceQuestionWidget(this.data, this.questionNumber, {this.previous, this.next});
+  QuestionDataWidget(
+    this.data,
+    this.questionNumber, {
+    this.previous,
+    this.next,
+  });
 
   Widget _generateQuestion(BuildContext context) {
-    final MediaQueryData mq = MediaQuery.of(context);
+    final size = MediaQuery.of(context).size;
 
     EdgeInsets padding = createPadding(context);
 
     return Container(
       padding: padding,
-      height: mq.size.height * 0.3,
-      width: mq.size.width,
+      height: size.height * 0.3,
+      width: size.width,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: borderRadius),
         child: Row(
