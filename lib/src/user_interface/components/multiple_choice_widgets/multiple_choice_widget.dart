@@ -10,15 +10,11 @@ import 'multiple_choice_answer_widget.dart';
 class MultipleChoiceWidget extends StatefulWidget {
   final MultipleChoiceQuestionData data;
   final int questionNumber;
-  final List<AnswerChoice> _selected = [];
   final void Function(AnswerChoice) nextQuestion;
 
-  set selected(AnswerChoice selected) {
-    this._selected.clear();
-    this._selected.add(selected);
-  }
+  set selected(AnswerChoice selected) => data.selected = selected;
 
-  AnswerChoice get selected => _selected.first;
+  AnswerChoice get selected => data.selected;
 
   MultipleChoiceWidget(this.data, this.questionNumber, [this.nextQuestion]);
 
