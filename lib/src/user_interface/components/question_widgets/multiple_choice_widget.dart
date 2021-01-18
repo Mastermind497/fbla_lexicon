@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
+import '../../theme/style.dart';
 import 'multiple_choice_widgets/multiple_choice_answer_widget.dart';
-import 'multiple_choice_widgets/multiple_choice_choices_widget.dart';
 import 'question_data_widget.dart';
 
 class MultipleChoiceWidget extends StatefulWidget {
@@ -19,23 +19,35 @@ class MultipleChoiceWidget extends StatefulWidget {
   MultipleChoiceWidget(this.data, this.questionNumber, {this.nextQuestion, this.previousQuestion});
 
   @override
-  _MultipleChoiceWidgetState createState() => _MultipleChoiceWidgetState(data);
+  _MultipleChoiceWidgetState createState() => _MultipleChoiceWidgetState();
 }
 
 class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
-  final MultipleChoiceChoicesWidget choicesWidget;
-  List<MultipleChoiceAnswerWidget> answerChoices;
+  List<MultipleChoiceAnswerWidget> get getAnswerChoices {
+    var answerChoices = <MultipleChoiceAnswerWidget>[];
+    if (widget.selected == null) {
+      for (var choice in widget.data.choices) {
+        answerChoices.add(
+          MultipleChoiceAnswerWidget(choice, updateChosen),
+        );
+      }
+    } else {
+      for (var choice in widget.data.choices) {
+        answerChoices.add(
+          MultipleChoiceAnswerWidget(
+            choice,
+            updateChosen,
+            (choice == widget.selected ? fblaBlue : Colors.white),
+          ),
+        );
+      }
+    }
 
-  _MultipleChoiceWidgetState(MultipleChoiceQuestionData data)
-      : choicesWidget = MultipleChoiceChoicesWidget(data.choices) {
-    choicesWidget.onTap = updateChosen;
-    answerChoices = [...choicesWidget.answerChoices];
+    return answerChoices;
   }
 
   void updateChosen(AnswerChoice selected) {
     widget.selected = selected;
-    choicesWidget.selected = selected;
-    answerChoices = choicesWidget.getAfterChosen;
     Future.delayed(Duration(milliseconds: 145), () => setState(() {}));
 
     print(widget.selected);
@@ -46,7 +58,7 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
     return Column(
       children: [
         QuestionDataWidget(widget.data, widget.questionNumber),
-        ...answerChoices,
+        ...getAnswerChoices,
       ],
     );
   }
