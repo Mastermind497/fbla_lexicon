@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import '../../../../business_logic/models/question.dart';
-import 'multiple_choice_question_widget.dart';
-import 'multiple_choice_choices_widget.dart';
-import 'multiple_choice_answer_widget.dart';
+import '../../../business_logic/models/question.dart';
+import 'multiple_choice_widgets/multiple_choice_question_widget.dart';
+import 'multiple_choice_widgets/multiple_choice_choices_widget.dart';
+import 'multiple_choice_widgets/multiple_choice_answer_widget.dart';
 
 class MultipleChoiceWidget extends StatefulWidget {
   final MultipleChoiceQuestionData data;
