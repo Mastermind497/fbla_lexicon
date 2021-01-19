@@ -40,14 +40,14 @@ class MultipleResponseQuestionData extends QuestionData {
   final List<AnswerChoice> _selected;
 
   MultipleResponseQuestionData({
-    String id,
-    String question,
-    List<AnswerChoice> choices,
+    @required String id,
+    @required String question,
+    @required List<AnswerChoice> choices,
   })  : this._id = id,
         this._question = question,
         this._choices = choices,
-        this._correctAnswer = [],
-        this._selected = [] {
+        this._correctAnswer = <AnswerChoice>[],
+        this._selected = <AnswerChoice>[] {
     _correctAnswer.addAll(_choices.where((element) => element.isCorrect));
   }
 
