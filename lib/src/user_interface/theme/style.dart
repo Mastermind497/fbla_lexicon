@@ -41,13 +41,15 @@ Color incorrectColor = fblaRed;
 
 const double spaceMultiplier = 0.01;
 const double questionSize = 0.3;
-final BorderRadius borderRadius = BorderRadius.circular(15);
-final RoundedRectangleBorder rectangleBorder = RoundedRectangleBorder(borderRadius: borderRadius);
+const BorderRadius borderRadius =
+    const BorderRadius.all(const Radius.circular(15));
+final RoundedRectangleBorder rectangleBorder =
+    RoundedRectangleBorder(borderRadius: borderRadius);
 
-EdgeInsets createPadding(BuildContext context) {
+EdgeInsets createPadding(BuildContext context, [double size = 1]) {
   return EdgeInsets.symmetric(
-    horizontal: MediaQuery.of(context).size.width * spaceMultiplier,
-    vertical: MediaQuery.of(context).size.height * spaceMultiplier / 10,
+    horizontal: MediaQuery.of(context).size.width * spaceMultiplier * size,
+    vertical: MediaQuery.of(context).size.height * spaceMultiplier * size / 10,
   );
 }
 

@@ -15,8 +15,12 @@ class MultipleChoiceWidget extends StatefulWidget {
 
   AnswerChoice get selected => data.selected;
 
-  MultipleChoiceWidget(this.data, this.questionNumber,
-      {this.nextQuestion, this.previousQuestion});
+  MultipleChoiceWidget(
+    this.data,
+    this.questionNumber, {
+    this.nextQuestion,
+    this.previousQuestion,
+  });
 
   @override
   _MultipleChoiceWidgetState createState() => _MultipleChoiceWidgetState();
