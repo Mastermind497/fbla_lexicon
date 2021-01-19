@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:fbla_lexicon/src/user_interface/components/question_widgets/multiple_answer_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
-import '../../theme/style.dart';
 import 'question_data_widget.dart';
 
 class MultipleChoiceWidget extends StatefulWidget {
@@ -16,28 +15,29 @@ class MultipleChoiceWidget extends StatefulWidget {
 
   AnswerChoice get selected => data.selected;
 
-  MultipleChoiceWidget(this.data, this.questionNumber, {this.nextQuestion, this.previousQuestion});
+  MultipleChoiceWidget(this.data, this.questionNumber,
+      {this.nextQuestion, this.previousQuestion});
 
   @override
   _MultipleChoiceWidgetState createState() => _MultipleChoiceWidgetState();
 }
 
 class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
-  List<MultipleChoiceAnswerWidget> get getAnswerChoices {
-    var answerChoices = <MultipleChoiceAnswerWidget>[];
+  List<MultipleAnswerWidget> get getAnswerChoices {
+    var answerChoices = <MultipleAnswerWidget>[];
     if (widget.selected == null) {
       for (var choice in widget.data.choices) {
         answerChoices.add(
-          MultipleChoiceAnswerWidget(choice, updateChosen),
+          MultipleAnswerWidget(choice, updateChosen, false),
         );
       }
     } else {
       for (var choice in widget.data.choices) {
         answerChoices.add(
-          MultipleChoiceAnswerWidget(
+          MultipleAnswerWidget(
             choice,
             updateChosen,
-            (choice == widget.selected ? fblaBlue : Colors.white),
+            choice == widget.selected,
           ),
         );
       }
@@ -60,44 +60,6 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
         QuestionDataWidget(widget.data, widget.questionNumber),
         ...getAnswerChoices,
       ],
-    );
-  }
-}
-
-class MultipleChoiceAnswerWidget extends StatelessWidget {
-  final AnswerChoice choice;
-  final void Function(AnswerChoice) onTap;
-  final Color color;
-
-  MultipleChoiceAnswerWidget(this.choice, this.onTap, [this.color = Colors.white]);
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: createPadding(context),
-        child: Card(
-          shape: rectangleBorder,
-          margin: createMargin(context),
-          color: color,
-          child: InkWell(
-            splashColor: fblaBlue,
-            onTap: () => onTap(choice),
-            borderRadius: borderRadius,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Center(
-                child: AutoSizeText(
-                  choice.content,
-                  style: (color == Colors.white ? regularChoice : answeredChoice),
-                  maxLines: 3,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
