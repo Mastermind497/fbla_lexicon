@@ -17,8 +17,12 @@ class MultipleResponseWidget extends StatefulWidget {
 
   List<AnswerChoice> get selected => data.selected;
 
-  MultipleResponseWidget(this.data, this.questionNumber,
-      {this.nextQuestion, this.previousQuestion});
+  MultipleResponseWidget(
+    this.data,
+    this.questionNumber, {
+    this.nextQuestion,
+    this.previousQuestion,
+  });
 
   @override
   _MultipleResponseWidgetState createState() => _MultipleResponseWidgetState();
