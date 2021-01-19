@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:fbla_lexicon/src/user_interface/theme/style.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
@@ -18,22 +19,10 @@ class TrueFalseWidget extends StatefulWidget {
 }
 
 class _TrueFalseWidgetState extends State<TrueFalseWidget> {
-  TrueFalseAnswerWidget trueWidget;
-  TrueFalseAnswerWidget falseWidget;
-  QuestionDataWidget questionWidget;
-
-  _TrueFalseWidgetState() {
-    trueWidget = TrueFalseAnswerWidget(true, false, select);
-    falseWidget = TrueFalseAnswerWidget(false, false, select);
-    questionWidget = QuestionDataWidget(widget.data, widget.questionNumber);
-  }
+  bool selected;
 
   void select(bool selected) {
-    if (selected)
-      trueWidget = TrueFalseAnswerWidget(true, true, select);
-    else
-      falseWidget = TrueFalseAnswerWidget(false, true, select);
-
+    this.selected = selected;
     Future.delayed(Duration(milliseconds: 145), () => setState(() {}));
   }
 
@@ -41,9 +30,15 @@ class _TrueFalseWidgetState extends State<TrueFalseWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        questionWidget,
-        trueWidget,
-        falseWidget,
+        QuestionDataWidget(
+          widget.data,
+          widget.questionNumber,
+          size: 0.45,
+          next: widget.nextQuestion,
+          previous: widget.previousQuestion,
+        ),
+        TrueFalseAnswerWidget(true, (selected == null ? false : selected), select),
+        TrueFalseAnswerWidget(false, (selected == null ? false : !selected), select),
       ],
     );
   }
@@ -58,6 +53,29 @@ class TrueFalseAnswerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText("Here Lies $choice");
+    return Expanded(
+      child: Padding(
+        padding: createPadding(context),
+        child: Card(
+          shape: rectangleBorder,
+          margin: createMargin(context),
+          color: isSelected ? fblaBlue : Colors.white,
+          child: InkWell(
+            splashColor: fblaBlue,
+            onTap: () => onTap(choice),
+            borderRadius: borderRadius,
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Center(
+                  child: Text(
+                (choice ? "True" : "False"),
+                style: isSelected ? answeredChoice : regularChoice,
+                textAlign: TextAlign.center,
+              )),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

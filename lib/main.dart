@@ -30,23 +30,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var question = MultipleChoiceQuestionData(
+  var question = TrueFalseQuestionData(
     id: 'id',
     question: 'What is the best fruit',
-    choices: [
-      AnswerChoice(
-          'Apple asdfasdfasdfasfdasaaaazfafasdfasdfsa asfaasasfasfasdfadfajfkaskfj asdfsfdkadfsasdf',
-          id: '0'),
-      AnswerChoice('Orange', id: '1'),
-      AnswerChoice('Pear', id: '2'),
-      AnswerChoice('Coconut', id: '3'),
-    ],
+    answer: true,
   );
 
   var questionWidget;
 
   _MyHomePageState() {
-    questionWidget = MultipleChoiceWidget(question, 1);
+    questionWidget = TrueFalseWidget(question, 1);
   }
 
   @override
