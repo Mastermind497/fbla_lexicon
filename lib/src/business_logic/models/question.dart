@@ -39,7 +39,8 @@ class MultipleResponseQuestionData extends QuestionData {
   final List<AnswerChoice> _correctAnswer;
   final List<AnswerChoice> _selected;
 
-  MultipleResponseQuestionData(String id, String question, List<AnswerChoice> choices)
+  MultipleResponseQuestionData(
+      String id, String question, List<AnswerChoice> choices)
       : this._id = id,
         this._question = question,
         this._choices = choices,
@@ -67,12 +68,17 @@ class MultipleResponseQuestionData extends QuestionData {
 
   List<AnswerChoice> get choices => _choices;
 
+  List<AnswerChoice> get selected => _selected;
+
   set selected(List<AnswerChoice> selected) {
     _selected.clear();
     _selected.addAll(selected);
   }
 
-  void addChosen(AnswerChoice selected) => _selected.add(selected);
+  void remove(AnswerChoice selected) =>
+      _selected.removeWhere((element) => element == selected);
+
+  void add(AnswerChoice selected) => _selected.add(selected);
 
   void addAllChosen(List<AnswerChoice> selected) => _selected.addAll(selected);
 }
