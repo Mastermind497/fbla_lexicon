@@ -111,13 +111,13 @@ class TrueFalseQuestionData extends QuestionData {
   bool get answer => _answer;
 }
 
-class FillInTheBlankQuestionData extends QuestionData {
+class FreeResponseQuestionData extends QuestionData {
   final String _id;
   final String _question;
   final String _answer;
   String _chosen;
 
-  FillInTheBlankQuestionData({
+  FreeResponseQuestionData({
     @required String id,
     @required String question,
     @required String answer,
