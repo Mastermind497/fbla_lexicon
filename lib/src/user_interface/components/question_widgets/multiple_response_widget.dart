@@ -73,7 +73,12 @@ class _MultipleResponseWidgetState extends State<MultipleResponseWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        QuestionDataWidget(widget.data, widget.questionNumber),
+        QuestionDataWidget(
+          widget.data,
+          widget.questionNumber,
+          next: widget.nextQuestion,
+          previous: widget.previousQuestion,
+        ),
         ...getAnswerChoices,
       ],
     );

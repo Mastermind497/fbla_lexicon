@@ -57,7 +57,12 @@ class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        QuestionDataWidget(widget.data, widget.questionNumber),
+        QuestionDataWidget(
+          widget.data,
+          widget.questionNumber,
+          next: widget.nextQuestion,
+          previous: widget.previousQuestion,
+        ),
         ...getAnswerChoices,
       ],
     );
