@@ -1,10 +1,9 @@
 import 'dart:async';
 
-import 'package:auto_size_text/auto_size_text.dart';
-import 'package:fbla_lexicon/src/user_interface/theme/style.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
+import '../../theme/style.dart';
 import 'question_data_widget.dart';
 
 class TrueFalseWidget extends StatefulWidget {
@@ -12,7 +11,8 @@ class TrueFalseWidget extends StatefulWidget {
   final int questionNumber;
   final void Function() nextQuestion, previousQuestion;
 
-  TrueFalseWidget(this.data, this.questionNumber, {this.nextQuestion, this.previousQuestion});
+  TrueFalseWidget(this.data, this.questionNumber,
+      {this.nextQuestion, this.previousQuestion});
 
   @override
   _TrueFalseWidgetState createState() => _TrueFalseWidgetState();
@@ -37,8 +37,10 @@ class _TrueFalseWidgetState extends State<TrueFalseWidget> {
           next: widget.nextQuestion,
           previous: widget.previousQuestion,
         ),
-        TrueFalseAnswerWidget(true, (selected == null ? false : selected), select),
-        TrueFalseAnswerWidget(false, (selected == null ? false : !selected), select),
+        TrueFalseAnswerWidget(
+            true, (selected == null ? false : selected), select),
+        TrueFalseAnswerWidget(
+            false, (selected == null ? false : !selected), select),
       ],
     );
   }
