@@ -134,9 +134,10 @@ class FreeResponseQuestionData extends QuestionData {
   /// Checks if the answer is acceptable using Dice's coefficient, allowing up to
   /// 25% inaccuracy to account for minor spelling mistakes.
   @override
-  bool get isCorrect => _chosen.similarityTo(_answer) >= 0.75;
+  bool get isCorrect =>
+      StringSimilarity.compareTwoStrings(_answer, _chosen) >= 0.75;
 
   String get answer => _answer;
 
-  set chosen(String choice) => _chosen;
+  set chosen(String choice) => _chosen = choice;
 }
