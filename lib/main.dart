@@ -30,20 +30,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var question = MultipleResponseQuestionData(
-      id: 'id',
-      question: 'What is the best fruit',
-      choices: [
-        AnswerChoice('Apple', id: '01'),
-        AnswerChoice('banana', id: '02'),
-        AnswerChoice('chocolate', id: '03', isCorrect: true),
-        AnswerChoice('broom', id: '04'),
-      ]);
+  var question = FreeResponseQuestionData(
+    id: 'id',
+    question: 'What is the best fruit',
+    answer: 'chocolate',
+  );
 
   var questionWidget;
 
   _MyHomePageState() {
-    questionWidget = MultipleResponseWidget(question, 1);
+    questionWidget = FreeResponseWidget(question, 1);
   }
 
   @override
