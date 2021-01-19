@@ -77,7 +77,7 @@ class MultipleChoiceAnswerWidget extends StatelessWidget {
       child: Padding(
         padding: createPadding(context),
         child: Card(
-          shape: RoundedRectangleBorder(borderRadius: borderRadius),
+          shape: rectangleBorder,
           margin: createMargin(context),
           color: color,
           child: InkWell(

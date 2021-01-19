@@ -7,12 +7,14 @@ class QuestionDataWidget extends StatelessWidget {
   final QuestionData data;
   final int questionNumber;
   final Function previous, next;
+  final double size;
 
   QuestionDataWidget(
     this.data,
     this.questionNumber, {
     this.previous,
     this.next,
+    this.size = 0.3,
   });
 
   Widget _generateQuestion(BuildContext context) {
@@ -22,10 +24,10 @@ class QuestionDataWidget extends StatelessWidget {
 
     return Container(
       padding: padding,
-      height: size.height * 0.3,
+      height: size.height * this.size,
       width: size.width,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: borderRadius),
+        shape: rectangleBorder,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,

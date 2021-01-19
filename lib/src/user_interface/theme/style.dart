@@ -42,6 +42,7 @@ Color incorrectColor = fblaRed;
 const double spaceMultiplier = 0.01;
 const double questionSize = 0.3;
 final BorderRadius borderRadius = BorderRadius.circular(15);
+final RoundedRectangleBorder rectangleBorder = RoundedRectangleBorder(borderRadius: borderRadius);
 
 EdgeInsets createPadding(BuildContext context) {
   return EdgeInsets.symmetric(
