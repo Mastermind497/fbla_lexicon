@@ -39,9 +39,11 @@ class MultipleResponseQuestionData extends QuestionData {
   final List<AnswerChoice> _correctAnswer;
   final List<AnswerChoice> _selected;
 
-  MultipleResponseQuestionData(
-      String id, String question, List<AnswerChoice> choices)
-      : this._id = id,
+  MultipleResponseQuestionData({
+    String id,
+    String question,
+    List<AnswerChoice> choices,
+  })  : this._id = id,
         this._question = question,
         this._choices = choices,
         this._correctAnswer = [],
