@@ -10,7 +10,7 @@ class FreeResponseWidget extends StatefulWidget implements QuestionWidget {
   final int questionNumber;
   final void Function() nextQuestion, previousQuestion;
 
-  FreeResponseWidget(
+  const FreeResponseWidget(
     this.data,
     this.questionNumber, {
     this.nextQuestion,

@@ -12,8 +12,12 @@ class TrueFalseWidget extends StatefulWidget implements QuestionWidget {
   final int questionNumber;
   final void Function() nextQuestion, previousQuestion;
 
-  TrueFalseWidget(this.data, this.questionNumber,
-      {this.nextQuestion, this.previousQuestion});
+  const TrueFalseWidget(
+    this.data,
+    this.questionNumber, {
+    this.nextQuestion,
+    this.previousQuestion,
+  });
 
   @override
   _TrueFalseWidgetState createState() => _TrueFalseWidgetState();

@@ -10,8 +10,12 @@ class MultipleAnswerWidget extends StatelessWidget {
   final bool isSelected;
   final bool multipleAnswers;
 
-  MultipleAnswerWidget(this.choice, this.onTap, this.isSelected,
-      [this.multipleAnswers = false]);
+  const MultipleAnswerWidget(
+    this.choice,
+    this.onTap,
+    this.isSelected, [
+    this.multipleAnswers = false,
+  ]);
 
   @override
   Widget build(BuildContext context) {

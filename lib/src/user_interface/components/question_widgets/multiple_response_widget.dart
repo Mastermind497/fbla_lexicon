@@ -18,7 +18,7 @@ class MultipleResponseWidget extends StatefulWidget implements QuestionWidget {
 
   List<AnswerChoice> get selected => data.selected;
 
-  MultipleResponseWidget(
+  const MultipleResponseWidget(
     this.data,
     this.questionNumber, {
     this.nextQuestion,

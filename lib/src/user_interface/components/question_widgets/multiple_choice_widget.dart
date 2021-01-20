@@ -16,7 +16,7 @@ class MultipleChoiceWidget extends StatefulWidget implements QuestionWidget {
 
   AnswerChoice get selected => data.selected;
 
-  MultipleChoiceWidget(
+  const MultipleChoiceWidget(
     this.data,
     this.questionNumber, {
     this.nextQuestion,
@@ -29,7 +29,7 @@ class MultipleChoiceWidget extends StatefulWidget implements QuestionWidget {
 
 class _MultipleChoiceWidgetState extends State<MultipleChoiceWidget> {
   List<MultipleAnswerWidget> get getAnswerChoices {
-    var answerChoices = <MultipleAnswerWidget>[];
+    final answerChoices = <MultipleAnswerWidget>[];
     if (widget.selected == null) {
       for (var choice in widget.data.choices) {
         answerChoices.add(

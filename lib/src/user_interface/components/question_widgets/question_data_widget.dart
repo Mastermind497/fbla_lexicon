@@ -9,7 +9,7 @@ class QuestionDataWidget extends StatelessWidget {
   final Function previous, next;
   final double size;
 
-  QuestionDataWidget(
+  const QuestionDataWidget(
     this.data,
     this.questionNumber, {
     this.previous,
@@ -48,7 +48,8 @@ class QuestionDataWidget extends StatelessWidget {
                   ),
                 if (questionNumber != null)
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * spaceMultiplier,
+                    height:
+                        MediaQuery.of(context).size.height * spaceMultiplier,
                   ),
                 Text(data.question, style: questionStyleB),
               ],
