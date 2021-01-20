@@ -3,10 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
+import '../question_widgets.dart';
 import 'multiple_answer_widget.dart';
 import 'question_data_widget.dart';
 
-class MultipleResponseWidget extends StatefulWidget {
+class MultipleResponseWidget extends StatefulWidget implements QuestionWidget {
   final MultipleResponseQuestionData data;
   final int questionNumber;
   final void Function() nextQuestion, previousQuestion;

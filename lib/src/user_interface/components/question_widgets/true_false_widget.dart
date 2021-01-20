@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
 import '../../theme/style.dart';
+import '../question_widgets.dart';
 import 'question_data_widget.dart';
 
-class TrueFalseWidget extends StatefulWidget {
+class TrueFalseWidget extends StatefulWidget implements QuestionWidget {
   final TrueFalseQuestionData data;
   final int questionNumber;
   final void Function() nextQuestion, previousQuestion;

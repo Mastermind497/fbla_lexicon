@@ -1,12 +1,13 @@
 import 'dart:async';
 
-import 'package:fbla_lexicon/src/user_interface/components/question_widgets/multiple_answer_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
+import '../question_widgets.dart';
+import 'multiple_answer_widget.dart';
 import 'question_data_widget.dart';
 
-class MultipleChoiceWidget extends StatefulWidget {
+class MultipleChoiceWidget extends StatefulWidget implements QuestionWidget {
   final MultipleChoiceQuestionData data;
   final int questionNumber;
   final void Function() nextQuestion, previousQuestion;
