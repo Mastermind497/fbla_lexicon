@@ -1,10 +1,11 @@
 import 'package:flutter/foundation.dart';
-
 import 'package:string_similarity/string_similarity.dart';
 
 import 'question_data/question_foundation.dart';
+
 export 'question_data/answered_questions.dart';
 export 'question_data/question_foundation.dart';
+export 'question_data/event.dart';
 
 class MultipleChoiceQuestionData extends QuestionData {
   final String _id;
