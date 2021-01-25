@@ -134,4 +134,7 @@ class Event {
   static const Event wordProcessing = Event._(
     "Word Processing",
   );
+  static const Event none = Event._(
+    "None",
+  );
 }

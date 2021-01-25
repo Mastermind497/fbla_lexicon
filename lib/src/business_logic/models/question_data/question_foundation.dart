@@ -2,20 +2,28 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../data/utils.dart';
+import 'event.dart';
 
 abstract class RawQuestionData {
   String get id;
+  Event get event;
+
+  const RawQuestionData();
 }
 
-abstract class AnsweredQuestion implements RawQuestionData {
+abstract class AnsweredQuestion extends RawQuestionData {
   String get id;
   bool get isCorrect;
+  Event get event;
+
+  const AnsweredQuestion();
 }
 
-abstract class QuestionData implements RawQuestionData {
+abstract class QuestionData extends RawQuestionData {
   String get id;
   String get question;
   bool get isCorrect;
+  Event get event;
 
   const QuestionData();
 }
