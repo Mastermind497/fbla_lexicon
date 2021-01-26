@@ -74,11 +74,12 @@ class TrueFalseAnswerWidget extends StatelessWidget {
             child: Container(
               width: MediaQuery.of(context).size.width,
               child: Center(
-                  child: Text(
-                (choice ? "True" : "False"),
-                style: isSelected ? answeredChoice : regularChoice,
-                textAlign: TextAlign.center,
-              )),
+                child: Text(
+                  (choice ? 'True' : 'False'),
+                  style: isSelected ? answeredChoice : regularChoice,
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           ),
         ),

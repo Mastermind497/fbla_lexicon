@@ -43,7 +43,7 @@ class QuestionDataWidget extends StatelessWidget {
               children: [
                 if (questionNumber != null)
                   Text(
-                    "Question $questionNumber",
+                    'Question $questionNumber',
                     style: questionStyleA,
                   ),
                 if (questionNumber != null)
