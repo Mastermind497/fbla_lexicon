@@ -1,12 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:string_similarity/string_similarity.dart';
 
-import 'question_data/question_foundation.dart';
+import '../data/utils.dart';
 import 'question_data/event.dart';
+import 'question_data/question_foundation.dart';
 
 export 'question_data/answered_questions.dart';
-export 'question_data/question_foundation.dart';
 export 'question_data/event.dart';
+export 'question_data/question_foundation.dart';
 
 class MultipleChoiceQuestionData extends QuestionData {
   final String _id;
@@ -16,13 +17,13 @@ class MultipleChoiceQuestionData extends QuestionData {
   AnswerChoice selected;
 
   MultipleChoiceQuestionData({
-    @required String id,
+    @required int idNumber,
     @required String question,
     @required List<AnswerChoice> choices,
     @required Event event,
   })  : _question = question,
         _choices = choices,
-        _id = id,
+        _id = generateId(event, idNumber),
         _event = event;
 
   String get id => _id;
@@ -45,11 +46,11 @@ class MultipleResponseQuestionData extends QuestionData {
   final Event _event;
 
   MultipleResponseQuestionData({
-    @required String id,
+    @required int idNumber,
     @required String question,
     @required List<AnswerChoice> choices,
     @required Event event,
-  })  : _id = id,
+  })  : _id = generateId(event, idNumber),
         _question = question,
         _choices = choices,
         _correctAnswer = <AnswerChoice>[],
@@ -99,13 +100,13 @@ class TrueFalseQuestionData extends QuestionData {
   bool chosen;
 
   TrueFalseQuestionData({
-    @required String id,
+    @required int idNumber,
     @required String question,
     @required bool answer,
     @required Event event,
   })  : _question = question,
         _answer = answer,
-        _id = id,
+        _id = generateId(event, idNumber),
         _event = event;
 
   String get id => _id;
@@ -127,13 +128,13 @@ class FreeResponseQuestionData extends QuestionData {
   String _chosen;
 
   FreeResponseQuestionData({
-    @required String id,
+    @required int idNumber,
     @required String question,
     @required String answer,
     @required Event event,
   })  : _question = question,
         _answer = answer,
-        _id = id,
+        _id = generateId(event, idNumber),
         _event = event;
 
   String get id => _id;
