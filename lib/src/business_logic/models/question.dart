@@ -127,7 +127,7 @@ class FreeResponseQuestionData extends QuestionData {
   final String _question;
   final List<String> _answer;
   final Event _event;
-  String _chosen;
+  String chosen;
 
   FreeResponseQuestionData({
     @required int idNumber,
@@ -153,7 +153,7 @@ class FreeResponseQuestionData extends QuestionData {
           similarity,
           StringSimilarity.compareTwoStrings(
             element.toUpperCase(),
-            _chosen.toUpperCase(),
+            chosen.toUpperCase(),
           ),
         );
       },
@@ -176,6 +176,4 @@ class FreeResponseQuestionData extends QuestionData {
   }
 
   Event get event => _event;
-
-  set chosen(String choice) => _chosen = choice;
 }
