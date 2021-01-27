@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:string_similarity/string_similarity.dart';
 
@@ -123,14 +125,14 @@ class TrueFalseQuestionData extends QuestionData {
 class FreeResponseQuestionData extends QuestionData {
   final String _id;
   final String _question;
-  final String _answer;
+  final List<String> _answer;
   final Event _event;
   String _chosen;
 
   FreeResponseQuestionData({
     @required int idNumber,
     @required String question,
-    @required String answer,
+    @required List<String> answer,
     @required Event event,
   })  : _question = question,
         _answer = answer,
@@ -143,10 +145,35 @@ class FreeResponseQuestionData extends QuestionData {
 
   /// Checks if the answer is acceptable using Dice's coefficient, allowing up to
   /// 25% inaccuracy to account for minor spelling mistakes.
-  bool get isCorrect =>
-      StringSimilarity.compareTwoStrings(_answer, _chosen) >= 0.75;
+  bool get isCorrect {
+    double similarity = 0;
+    _answer.forEach(
+      (element) {
+        similarity = max(
+          similarity,
+          StringSimilarity.compareTwoStrings(
+            element.toUpperCase(),
+            _chosen.toUpperCase(),
+          ),
+        );
+      },
+    );
 
-  String get answer => _answer;
+    return similarity >= 0.75;
+  }
+
+  List<String> get answer => _answer;
+
+  String get answerRepresentation {
+    String toReturn = _answer[0];
+    if (_answer.length > 1) {
+      toReturn += ' Also Accepts: ';
+      for (int i = 1; i < _answer.length; i++) {
+        toReturn += '$_answer[i]' + (i + 1 == _answer.length ? '' : ', ');
+      }
+    }
+    return toReturn;
+  }
 
   Event get event => _event;
 
