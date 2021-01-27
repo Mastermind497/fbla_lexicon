@@ -147,6 +147,7 @@ class FreeResponseQuestionData extends QuestionData {
   /// 25% inaccuracy to account for minor spelling mistakes.
   bool get isCorrect {
     double similarity = 0;
+    if (chosen == null) return false;
     _answer.forEach(
       (element) {
         similarity = max(
