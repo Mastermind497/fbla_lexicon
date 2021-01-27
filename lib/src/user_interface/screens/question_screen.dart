@@ -11,6 +11,7 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
   final List<Widget> questionWidgetList = [];
+  final int numQuestions;
 
   int currentQuestion = 0;
   bool ended = false;
@@ -28,9 +29,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
     });
   }
 
-  _QuestionScreenState() {
-    var questionList = randomQuestions();
-    for (int i = 0; i < questionList.length; i++) {
+  _QuestionScreenState([this.numQuestions = 5]) {
+    var questionList = randomQuestions(numQuestions);
+    for (int i = 0; i < numQuestions; i++) {
       questionWidgetList.add(
         QuestionWidget.getQuestionWidget(
           questionList[i],
@@ -44,8 +45,17 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    int score = 0;
+    questionWidgetList.forEach((element) {
+      var data = QuestionWidget.getQuestionDataFrom(element);
+      if (data.isCorrect) score++;
+    });
     return Container(
-      child: ended ? Text('Ended') : questionWidgetList[currentQuestion],
+      child: ended
+          ? Text(
+              'Ended: Score: $score / $numQuestions = ${score / numQuestions * 100}%',
+            )
+          : questionWidgetList[currentQuestion],
     );
   }
 }
