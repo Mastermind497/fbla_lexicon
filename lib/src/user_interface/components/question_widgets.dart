@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../business_logic/models/question.dart';
 import 'question_widgets/free_response_widget.dart';
 import 'question_widgets/multiple_choice_widget.dart';
@@ -10,7 +12,9 @@ export 'question_widgets/multiple_response_widget.dart';
 export 'question_widgets/true_false_widget.dart';
 
 abstract class QuestionWidget {
-  factory QuestionWidget(QuestionData data, int questionNumber,
+  QuestionData get data;
+
+  static Widget getQuestionWidget(QuestionData data, int questionNumber,
       void Function() nextQuestion, void Function() previousQuestion) {
     if (data is MultipleChoiceQuestionData) {
       return MultipleChoiceWidget(
@@ -41,5 +45,12 @@ abstract class QuestionWidget {
         previousQuestion: previousQuestion,
       );
     }
+  }
+
+  static QuestionData getQuestionDataFrom(Widget widget) {
+    if (!(widget is QuestionWidget))
+      return null;
+    else
+      return (widget as QuestionWidget).data;
   }
 }
