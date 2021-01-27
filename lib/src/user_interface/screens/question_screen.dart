@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../business_logic/models/question.dart';
+import '../../business_logic/data/question_list.dart';
 import '../components/question_widgets.dart';
 
 class QuestionScreen extends StatefulWidget {
@@ -9,53 +10,42 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
-  final List<QuestionWidget> questionWidgetList = [];
+  final List<Widget> questionWidgetList = [];
 
-  void nextQuestion() {}
+  int currentQuestion = 0;
+  bool ended = false;
 
-  void previousQuestion() {}
+  void nextQuestion() {
+    setState(() {
+      currentQuestion++;
+      ended = currentQuestion == questionWidgetList.length;
+    });
+  }
+
+  void previousQuestion() {
+    setState(() {
+      currentQuestion--;
+    });
+  }
 
   _QuestionScreenState() {
-    questionWidgetList
-        .addAll(_Questions(nextQuestion, previousQuestion).getQuestions());
+    var questionList = randomQuestions();
+    for (int i = 0; i < questionList.length; i++) {
+      questionWidgetList.add(
+        QuestionWidget.getQuestionWidget(
+          questionList[i],
+          i + 1,
+          nextQuestion,
+          (i == 0 ? null : previousQuestion),
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      child: ended ? Text('Ended') : questionWidgetList[currentQuestion],
+    );
   }
-}
-
-// https://www.fbla-pbl.org/media/accounting_i_online_ref_guide.pdf
-class _Questions {
-  final void Function() next, previous;
-
-  _Questions(this.next, this.previous);
-
-  List<QuestionWidget> getQuestions() {
-    return <QuestionWidget>[
-      MultipleChoiceWidget(
-        MultipleChoiceQuestionData(
-          question:
-              'A special journal used to record only cash recept transactions is: ',
-          choices: AnswerChoice.of([
-            'a purchases journal',
-            'a cash receipts journal',
-            'a cash journal',
-            'a sales journal',
-          ], 'a cash receipts journal'),
-          id: Event.accountingI.withIdString('MC0001'),
-        ),
-        1,
-        nextQuestion: next,
-        previousQuestion: previous,
-      ),
-    ];
-  }
-}
-
-extension EventNumber on Event {
-  String get id => this.index as String;
-
-  String withIdString(String id) => '${this.id}-$id';
 }
