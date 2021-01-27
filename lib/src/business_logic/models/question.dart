@@ -32,7 +32,7 @@ class MultipleChoiceQuestionData extends QuestionData {
 
   String get question => _question;
 
-  bool get isCorrect => selected.isCorrect;
+  bool get isCorrect => selected != null && selected.isCorrect;
 
   Event get event => _event;
 
@@ -66,7 +66,7 @@ class MultipleResponseQuestionData extends QuestionData {
   String get question => _question;
 
   bool get isCorrect {
-    if (_choices.length == _correctAnswer.length) {
+    if (_selected != null && _selected.length == _correctAnswer.length) {
       _selected.forEach((element) {
         if (!element.isCorrect) return false;
       });
