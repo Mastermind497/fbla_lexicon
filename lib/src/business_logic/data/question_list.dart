@@ -1,8 +1,7 @@
 import 'dart:math';
 
-import 'package:fbla_lexicon/src/business_logic/data/utils.dart';
-
 import '../models/question.dart';
+import 'utils.dart';
 
 // https://www.fbla-pbl.org/media/accounting_i_online_ref_guide.pdf
 final List<QuestionData> questionList = [

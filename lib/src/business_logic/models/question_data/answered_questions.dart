@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
-import 'question_foundation.dart';
 import 'event.dart';
+import 'question_foundation.dart';
 
 class AnsweredMultipleChoiceQuestion implements AnsweredQuestion {
   final String _id;
