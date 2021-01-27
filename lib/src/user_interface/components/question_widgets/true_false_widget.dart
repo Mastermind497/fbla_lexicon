@@ -24,10 +24,8 @@ class TrueFalseWidget extends StatefulWidget implements QuestionWidget {
 }
 
 class _TrueFalseWidgetState extends State<TrueFalseWidget> {
-  bool selected;
-
   void select(bool selected) {
-    this.selected = selected;
+    widget.data.chosen = selected;
     Future.delayed(Duration(milliseconds: 145), () => setState(() {}));
   }
 
@@ -43,9 +41,15 @@ class _TrueFalseWidgetState extends State<TrueFalseWidget> {
           previous: widget.previousQuestion,
         ),
         TrueFalseAnswerWidget(
-            true, (selected == null ? false : selected), select),
+          true,
+          (widget.data.chosen == null ? false : widget.data.chosen),
+          select,
+        ),
         TrueFalseAnswerWidget(
-            false, (selected == null ? false : !selected), select),
+          false,
+          (widget.data.chosen == null ? false : !widget.data.chosen),
+          select,
+        ),
       ],
     );
   }
