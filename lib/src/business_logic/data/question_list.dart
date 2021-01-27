@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:fbla_lexicon/src/business_logic/data/utils.dart';
+
 import '../models/question.dart';
 
 // https://www.fbla-pbl.org/media/accounting_i_online_ref_guide.pdf
@@ -121,3 +125,11 @@ final List<QuestionData> questionList = [
 
   // Accounting 2
 ];
+
+/// Gets [number] number of random questions from the question list by shuffling
+/// and then choosing the top 3. This way, it prevents duplicate questions
+/// while maintaining a list containing all the questions.
+List<QuestionData> randomQuestions([int number = 5]) {
+  shuffle(questionList);
+  return questionList.sublist(0, min(number, questionList.length));
+}
