@@ -25,7 +25,8 @@ void shuffle<T>(List<T> collection) {
 String generateId(Event event, int number) {
   // Converts Base 10 to Base 61 with at least 3 characters, allowing more
   // than 200,000 combinations
-  var inBase61 = base(number, inBase: 10, outBase: 61).padLeft(3, '0');
+  var inBase61 =
+      representAsString(base(number, inBase: 10, outBase: 61)).padLeft(3, '0');
   var eventAbbreviation = event.nameId;
   return '$eventAbbreviation-$inBase61';
 }
