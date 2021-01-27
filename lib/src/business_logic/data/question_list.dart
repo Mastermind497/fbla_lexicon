@@ -52,7 +52,7 @@ final List<QuestionData> questionList = [
   MultipleResponseQuestionData(
     idNumber: 3,
     question:
-        'Name all the following sections of an income statement which DO NOT' +
+        'Name all the following sections of an income statement which DO NOT ' +
             'report how much was paid for the goods a company sells?',
     choices: AnswerChoice.ofMultiple(
       [
