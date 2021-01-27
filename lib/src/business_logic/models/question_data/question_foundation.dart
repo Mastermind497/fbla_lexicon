@@ -74,4 +74,34 @@ class AnswerChoice extends Equatable {
     shuffle(answerChoices);
     return answerChoices;
   }
+
+  static List<AnswerChoice> ofMultiple(
+    List<String> choices,
+    List<String> correct,
+  ) {
+    final List<AnswerChoice> answerChoices = [];
+    int id = 0;
+    choices.removeWhere((element) => correct.contains(element));
+    correct.forEach(
+      (correctElement) {
+        answerChoices.add(
+          AnswerChoice(
+            correctElement,
+            isCorrect: true,
+            id: '${id++}',
+          ),
+        );
+      },
+    );
+    choices.forEach(
+      (element) => answerChoices.add(
+        AnswerChoice(
+          element,
+          id: '${id++}',
+        ),
+      ),
+    );
+    shuffle(answerChoices);
+    return answerChoices;
+  }
 }
