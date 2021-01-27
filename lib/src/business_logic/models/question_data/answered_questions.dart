@@ -78,13 +78,13 @@ class AnsweredTrueFalseQuestion implements AnsweredQuestion {
   Event get event => _event;
 }
 
-class AnsweredFillInTheBlankQuestion implements AnsweredQuestion {
+class AnsweredFreeResponseQuestion implements AnsweredQuestion {
   final String _id;
   final String _picked;
   final String _correctAnswer;
   final Event _event;
 
-  const AnsweredFillInTheBlankQuestion({
+  const AnsweredFreeResponseQuestion({
     @required String id,
     @required String picked,
     @required String correctAnswer,
