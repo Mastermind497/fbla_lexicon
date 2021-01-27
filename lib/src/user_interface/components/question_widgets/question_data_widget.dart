@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../business_logic/models/question.dart';
@@ -40,6 +41,7 @@ class QuestionDataWidget extends StatelessWidget {
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (questionNumber != null)
                   Text(
@@ -51,7 +53,16 @@ class QuestionDataWidget extends StatelessWidget {
                     height:
                         MediaQuery.of(context).size.height * spaceMultiplier,
                   ),
-                Text(data.question, style: questionStyleB),
+                Container(
+                  width: size.width * 2 / 3,
+                  child: AutoSizeText(
+                    data.question,
+                    style: questionStyleB,
+                    maxLines: (data is TrueFalseQuestionData ? 6 : 4),
+                    maxFontSize: 26,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
               ],
             ),
             IconButton(
