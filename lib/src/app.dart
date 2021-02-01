@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'user_interface/screens/question_screen.dart';
+import 'user_interface/screens/welcome_screen.dart';
 
 class FblaLexicon extends StatelessWidget {
   @override
@@ -9,7 +9,7 @@ class FblaLexicon extends StatelessWidget {
       appBar: AppBar(
         title: Text('FBLA Lexicon'),
       ),
-      body: QuestionScreen(),
+      body: WelcomeScreen(),
     );
   }
 }

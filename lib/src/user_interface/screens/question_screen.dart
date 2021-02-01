@@ -11,7 +11,8 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
   final List<Widget> questionWidgetList = [];
-  final int numQuestions;
+  int numQuestions;
+  String title;
 
   int currentQuestion = 0;
   bool ended = false;
@@ -29,33 +30,40 @@ class _QuestionScreenState extends State<QuestionScreen> {
     });
   }
 
-  _QuestionScreenState([this.numQuestions = 5]) {
-    var questionList = randomQuestions(numQuestions);
-    for (int i = 0; i < numQuestions; i++) {
-      questionWidgetList.add(
-        QuestionWidget.getQuestionWidget(
-          questionList[i],
-          i + 1,
-          nextQuestion,
-          (i == 0 ? null : previousQuestion),
-        ),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final routeArgs = ModalRoute.of(context).settings.arguments as Map;
+    numQuestions = (routeArgs['numQuestions'] ?? '5') as int;
+    title = routeArgs['title'];
+
+    if (questionWidgetList.isEmpty) {
+      var questionList = randomQuestions(numQuestions);
+      for (int i = 0; i < numQuestions; i++) {
+        questionWidgetList.add(
+          QuestionWidget.getQuestionWidget(
+            questionList[i],
+            i + 1,
+            nextQuestion,
+            (i == 0 ? null : previousQuestion),
+          ),
+        );
+      }
+    }
+
     int score = 0;
     questionWidgetList.forEach((element) {
       var data = QuestionWidget.getQuestionDataFrom(element);
       if (data.isCorrect) score++;
     });
-    return Container(
-      child: ended
-          ? Text(
-              'Ended: Score: $score / $numQuestions = ${score / numQuestions * 100}%',
-            )
-          : questionWidgetList[currentQuestion],
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: Container(
+        child: ended
+            ? Text(
+                'Ended: Score: $score / $numQuestions = ${score / numQuestions * 100}%',
+              )
+            : questionWidgetList[currentQuestion],
+      ),
     );
   }
 }
