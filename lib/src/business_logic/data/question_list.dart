@@ -128,7 +128,18 @@ final List<QuestionData> questionList = [
 /// Gets [number] number of random questions from the question list by shuffling
 /// and then choosing the top 3. This way, it prevents duplicate questions
 /// while maintaining a list containing all the questions.
-List<QuestionData> randomQuestions([int number = 5]) {
-  shuffle(questionList);
-  return questionList.sublist(0, min(number, questionList.length));
+///
+/// The reason this is done instead of randomly picking an index is to avoid
+/// duplicates in the actual quiz. The alternative, removing the item from the
+/// question list after it was selected, had the potential to permanently remove
+/// that question from future quizzes within the same instance and remove access
+/// to it when reviewing, which is less than ideal. Therefore, the strategy of
+/// shuffling the whole list and selecting a sublist was adopted.
+List<QuestionData> randomQuestions([int number = 5, Event event]) {
+  var list = questionList;
+
+  if (event != null) list.removeWhere((element) => element.event != event);
+
+  shuffle(list);
+  return list.sublist(0, min(number, list.length));
 }
