@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'user_interface/screens/welcome_screen.dart';
 
-final routes = <String, Function(BuildContext)>{
-  '/': (context) => WelcomeScreen(),
+final routes = <String, Widget Function(BuildContext)>{
+  WelcomeScreen.route: (context) => WelcomeScreen(),
   QuestionScreen.route: (context) => QuestionScreen(),
 };
