@@ -23,6 +23,12 @@ const questionStyleB = TextStyle(
   fontSize: 24,
 );
 
+const buttonStyle = TextStyle(
+  fontSize: 28,
+  fontWeight: FontWeight.bold,
+  color: Colors.white,
+);
+
 final regularChoice = TextStyle(
   fontSize: 20,
   color: fblaBlue,
