@@ -14,30 +14,30 @@ ThemeData appData() {
   );
 }
 
-TextStyle questionStyleA = TextStyle(
+const questionStyleA = TextStyle(
   fontSize: 28,
   fontWeight: FontWeight.bold,
 );
 
-TextStyle questionStyleB = TextStyle(
+const questionStyleB = TextStyle(
   fontSize: 24,
 );
 
-TextStyle regularChoice = TextStyle(
+final regularChoice = TextStyle(
   fontSize: 20,
   color: fblaBlue,
 );
 
-TextStyle answeredChoice = TextStyle(
+const answeredChoice = TextStyle(
   fontSize: 20,
   color: Colors.white,
   fontWeight: FontWeight.bold,
 );
 
-Color fblaBlue = createMaterialColor(Color.fromRGBO(0, 82, 155, 1));
-Color fblaRed = createMaterialColor(Color.fromRGBO(190, 44, 55, 1));
-Color correctColor = createMaterialColor(Color.fromRGBO(6, 214, 160, 1));
-Color incorrectColor = fblaRed;
+final Color fblaBlue = createMaterialColor(Color.fromRGBO(0, 82, 155, 1));
+final Color fblaRed = createMaterialColor(Color.fromRGBO(190, 44, 55, 1));
+final Color correctColor = createMaterialColor(Color.fromRGBO(6, 214, 160, 1));
+final Color incorrectColor = fblaRed;
 
 const double spaceMultiplier = 0.01;
 const double questionSize = 0.3;
