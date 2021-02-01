@@ -4,6 +4,7 @@ import '../../business_logic/data/question_list.dart';
 import '../components/question_widgets.dart';
 
 class QuestionScreen extends StatefulWidget {
+  static const route = '/question-screen';
   @override
   _QuestionScreenState createState() => _QuestionScreenState();
 }
