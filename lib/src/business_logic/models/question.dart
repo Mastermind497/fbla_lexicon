@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:fbla_lexicon/src/business_logic/models/question_data/answered_questions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:string_similarity/string_similarity.dart';
 
@@ -37,6 +38,15 @@ class MultipleChoiceQuestionData extends QuestionData {
   Event get event => _event;
 
   List<AnswerChoice> get choices => _choices;
+
+  AnsweredMultipleChoiceQuestion get toAnsweredQuestion {
+    return AnsweredMultipleChoiceQuestion(
+      id: _id,
+      chosen: selected,
+      correctAnswer: choices.where((element) => element.isCorrect).first,
+      event: _event,
+    );
+  }
 }
 
 class MultipleResponseQuestionData extends QuestionData {
@@ -44,7 +54,7 @@ class MultipleResponseQuestionData extends QuestionData {
   final String _question;
   final List<AnswerChoice> _choices;
   final List<AnswerChoice> _correctAnswer;
-  final List<AnswerChoice> _selected;
+  final List<AnswerChoice> _chosen;
   final Event _event;
 
   MultipleResponseQuestionData({
@@ -56,7 +66,7 @@ class MultipleResponseQuestionData extends QuestionData {
         _question = question,
         _choices = choices,
         _correctAnswer = <AnswerChoice>[],
-        _selected = <AnswerChoice>[],
+        _chosen = <AnswerChoice>[],
         _event = event {
     _correctAnswer.addAll(_choices.where((element) => element.isCorrect));
   }
@@ -66,8 +76,8 @@ class MultipleResponseQuestionData extends QuestionData {
   String get question => _question;
 
   bool get isCorrect {
-    if (_selected != null && _selected.length == _correctAnswer.length) {
-      _selected.forEach((element) {
+    if (_chosen != null && _chosen.length == _correctAnswer.length) {
+      _chosen.forEach((element) {
         if (!element.isCorrect) return false;
       });
       return true;
@@ -77,27 +87,36 @@ class MultipleResponseQuestionData extends QuestionData {
 
   List<AnswerChoice> get choices => _choices;
 
-  List<AnswerChoice> get selected => _selected;
+  List<AnswerChoice> get selected => _chosen;
 
   Event get event => _event;
 
+  AnsweredMultipleResponseQuestion get toAnsweredQuestion {
+    return AnsweredMultipleResponseQuestion(
+      id: _id,
+      chosen: _chosen,
+      correctAnswer: _correctAnswer,
+      event: event,
+    );
+  }
+
   set selected(List<AnswerChoice> selected) {
-    _selected.clear();
-    _selected.addAll(selected);
+    _chosen.clear();
+    _chosen.addAll(selected);
   }
 
   void remove(AnswerChoice selected) =>
-      _selected.removeWhere((element) => element == selected);
+      _chosen.removeWhere((element) => element == selected);
 
-  void add(AnswerChoice selected) => _selected.add(selected);
+  void add(AnswerChoice selected) => _chosen.add(selected);
 
-  void addAllChosen(List<AnswerChoice> selected) => _selected.addAll(selected);
+  void addAllChosen(List<AnswerChoice> selected) => _chosen.addAll(selected);
 }
 
 class TrueFalseQuestionData extends QuestionData {
   final String _id;
   final String _question;
-  final bool _answer;
+  final bool _correctAnswer;
   final Event _event;
   bool chosen;
 
@@ -107,7 +126,7 @@ class TrueFalseQuestionData extends QuestionData {
     @required bool answer,
     @required Event event,
   })  : _question = question,
-        _answer = answer,
+        _correctAnswer = answer,
         _id = generateId(event, idNumber),
         _event = event;
 
@@ -115,17 +134,26 @@ class TrueFalseQuestionData extends QuestionData {
 
   String get question => _question;
 
-  bool get isCorrect => chosen == _answer;
+  bool get isCorrect => chosen == _correctAnswer;
 
   Event get event => _event;
 
-  bool get answer => _answer;
+  bool get answer => _correctAnswer;
+
+  AnsweredTrueFalseQuestion get toAnsweredQuestion {
+    return AnsweredTrueFalseQuestion(
+      id: _id,
+      chosen: chosen,
+      correctAnswer: _correctAnswer,
+      event: event,
+    );
+  }
 }
 
 class FreeResponseQuestionData extends QuestionData {
   final String _id;
   final String _question;
-  final List<String> _answer;
+  final List<String> _correctAnswer;
   final Event _event;
   String chosen;
 
@@ -135,7 +163,7 @@ class FreeResponseQuestionData extends QuestionData {
     @required List<String> answer,
     @required Event event,
   })  : _question = question,
-        _answer = answer,
+        _correctAnswer = answer,
         _id = generateId(event, idNumber),
         _event = event;
 
@@ -148,7 +176,7 @@ class FreeResponseQuestionData extends QuestionData {
   bool get isCorrect {
     double similarity = 0;
     if (chosen == null) return false;
-    _answer.forEach(
+    _correctAnswer.forEach(
       (element) {
         similarity = max(
           similarity,
@@ -163,18 +191,28 @@ class FreeResponseQuestionData extends QuestionData {
     return similarity >= 0.75;
   }
 
-  List<String> get answer => _answer;
+  List<String> get answer => _correctAnswer;
 
   String get answerRepresentation {
-    String toReturn = _answer[0];
-    if (_answer.length > 1) {
+    String toReturn = _correctAnswer[0];
+    if (_correctAnswer.length > 1) {
       toReturn += ' Also Accepts: ';
-      for (int i = 1; i < _answer.length; i++) {
-        toReturn += '$_answer[i]' + (i + 1 == _answer.length ? '' : ', ');
+      for (int i = 1; i < _correctAnswer.length; i++) {
+        toReturn +=
+            '$_correctAnswer[i]' + (i + 1 == _correctAnswer.length ? '' : ', ');
       }
     }
     return toReturn;
   }
 
   Event get event => _event;
+
+  AnsweredFreeResponseQuestion get toAnsweredQuestion {
+    return AnsweredFreeResponseQuestion(
+      id: _id,
+      chosen: chosen,
+      correctAnswer: _correctAnswer,
+      event: event,
+    );
+  }
 }

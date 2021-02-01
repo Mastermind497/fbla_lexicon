@@ -24,6 +24,7 @@ abstract class QuestionData extends RawQuestionData {
   String get question;
   bool get isCorrect;
   Event get event;
+  AnsweredQuestion get toAnsweredQuestion;
 
   const QuestionData();
 }
