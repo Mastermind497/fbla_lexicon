@@ -14,16 +14,16 @@ ThemeData appData() {
   );
 }
 
-const questionStyleA = TextStyle(
+const questionStyleA = const TextStyle(
   fontSize: 28,
   fontWeight: FontWeight.bold,
 );
 
-const questionStyleB = TextStyle(
+const questionStyleB = const TextStyle(
   fontSize: 24,
 );
 
-const buttonStyle = TextStyle(
+const buttonStyle = const TextStyle(
   fontSize: 28,
   fontWeight: FontWeight.bold,
   color: Colors.white,
@@ -34,11 +34,56 @@ final regularChoice = TextStyle(
   color: fblaBlue,
 );
 
-const answeredChoice = TextStyle(
+const answeredChoice = const TextStyle(
   fontSize: 20,
   color: Colors.white,
   fontWeight: FontWeight.bold,
 );
+
+final endScore = TextStyle(
+  fontSize: 80,
+  color: fblaBlue,
+  fontWeight: FontWeight.bold,
+);
+
+const percentFont = const TextStyle(
+  fontSize: 20,
+  color: Colors.white,
+  fontWeight: FontWeight.bold,
+);
+
+final selectionHeadingCorrect = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: correctColor,
+  fontSize: 20,
+);
+
+final selectionHeadingIncorrect = TextStyle(
+  fontWeight: FontWeight.bold,
+  color: incorrectColor,
+  fontSize: 20,
+);
+
+final selectionBodyCorrect = TextStyle(
+  color: correctColor,
+  fontSize: 20,
+);
+
+final selectionBodyIncorrect = TextStyle(
+  color: incorrectColor,
+  fontSize: 20,
+);
+
+final correctText = TextSpan(
+  text: 'Correct!',
+  style: TextStyle(
+    fontWeight: FontWeight.bold,
+    color: correctColor,
+    fontSize: 20,
+  ),
+);
+
+const extraSpacing = const SizedBox(height: 10);
 
 final Color fblaBlue = createMaterialColor(Color.fromRGBO(0, 82, 155, 1));
 final Color fblaRed = createMaterialColor(Color.fromRGBO(190, 44, 55, 1));

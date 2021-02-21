@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../data/utils.dart';
+import '../score.dart';
 import 'event.dart';
 
 abstract class RawQuestionData {
@@ -25,8 +26,22 @@ abstract class QuestionData extends RawQuestionData {
   bool get isCorrect;
   Event get event;
   AnsweredQuestion get toAnsweredQuestion;
+  String get getSelected;
+  String get correctAnswer;
 
   const QuestionData();
+}
+
+extension ListExtension on List<QuestionData> {
+  int get getNumCorrect {
+    int total = 0;
+    this.forEach((element) {
+      if (element.isCorrect) total++;
+    });
+    return total;
+  }
+
+  Score get getScore => Score(this);
 }
 
 class AnswerChoice extends Equatable {
@@ -104,5 +119,17 @@ class AnswerChoice extends Equatable {
     );
     shuffle(answerChoices);
     return answerChoices;
+  }
+}
+
+extension AnswerChoiceList on List<AnswerChoice> {
+  AnswerChoice get correct {
+    AnswerChoice correct;
+    this.forEach(
+      (element) {
+        if (element.isCorrect) correct = element;
+      },
+    );
+    return correct;
   }
 }

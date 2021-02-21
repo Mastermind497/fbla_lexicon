@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:fbla_lexicon/src/business_logic/models/question_data/answered_questions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:string_similarity/string_similarity.dart';
 
 import '../data/utils.dart';
+import 'question_data/answered_questions.dart';
 import 'question_data/event.dart';
 import 'question_data/question_foundation.dart';
 
@@ -17,6 +17,7 @@ class MultipleChoiceQuestionData extends QuestionData {
   final String _question;
   final List<AnswerChoice> _choices;
   final Event _event;
+  AnswerChoice _correctAnswer;
   AnswerChoice selected;
 
   MultipleChoiceQuestionData({
@@ -27,7 +28,9 @@ class MultipleChoiceQuestionData extends QuestionData {
   })  : _question = question,
         _choices = choices,
         _id = generateId(event, idNumber),
-        _event = event;
+        _event = event {
+    _correctAnswer = _choices.correct;
+  }
 
   String get id => _id;
 
@@ -38,6 +41,10 @@ class MultipleChoiceQuestionData extends QuestionData {
   Event get event => _event;
 
   List<AnswerChoice> get choices => _choices;
+
+  String get getSelected => selected.content;
+
+  String get correctAnswer => _correctAnswer.content;
 
   AnsweredMultipleChoiceQuestion get toAnsweredQuestion {
     return AnsweredMultipleChoiceQuestion(
@@ -89,6 +96,22 @@ class MultipleResponseQuestionData extends QuestionData {
 
   List<AnswerChoice> get selected => _chosen;
 
+  String get getSelected {
+    String s = '';
+    for (int i = 0; i < selected.length; i++) {
+      if (i == selected.length - 1) s += 'and ${selected[i]}';
+    }
+    return s;
+  }
+
+  String get correctAnswer {
+    String s = '';
+    for (int i = 0; i < _correctAnswer.length; i++) {
+      if (i == _correctAnswer.length - 1) s += 'and ${_correctAnswer[i]}';
+    }
+    return s;
+  }
+
   Event get event => _event;
 
   AnsweredMultipleResponseQuestion get toAnsweredQuestion {
@@ -118,7 +141,7 @@ class TrueFalseQuestionData extends QuestionData {
   final String _question;
   final bool _correctAnswer;
   final Event _event;
-  bool chosen;
+  bool selected;
 
   TrueFalseQuestionData({
     @required int idNumber,
@@ -134,16 +157,20 @@ class TrueFalseQuestionData extends QuestionData {
 
   String get question => _question;
 
-  bool get isCorrect => chosen == _correctAnswer;
+  bool get isCorrect => selected == _correctAnswer;
 
   Event get event => _event;
 
   bool get answer => _correctAnswer;
 
+  String get getSelected => selected ? 'True' : 'False';
+
+  String get correctAnswer => answer ? 'True' : 'False';
+
   AnsweredTrueFalseQuestion get toAnsweredQuestion {
     return AnsweredTrueFalseQuestion(
       id: _id,
-      chosen: chosen,
+      chosen: selected,
       correctAnswer: _correctAnswer,
       event: event,
     );
@@ -155,7 +182,7 @@ class FreeResponseQuestionData extends QuestionData {
   final String _question;
   final List<String> _correctAnswer;
   final Event _event;
-  String chosen;
+  String selected;
 
   FreeResponseQuestionData({
     @required int idNumber,
@@ -171,18 +198,22 @@ class FreeResponseQuestionData extends QuestionData {
 
   String get question => _question;
 
+  String get getSelected => selected;
+
+  String get correctAnswer => answerRepresentation;
+
   /// Checks if the answer is acceptable using Dice's coefficient, allowing up to
   /// 25% inaccuracy to account for minor spelling mistakes.
   bool get isCorrect {
     double similarity = 0;
-    if (chosen == null) return false;
+    if (selected == null) return false;
     _correctAnswer.forEach(
       (element) {
         similarity = max(
           similarity,
           StringSimilarity.compareTwoStrings(
             element.toUpperCase(),
-            chosen.toUpperCase(),
+            selected.toUpperCase(),
           ),
         );
       },
@@ -196,10 +227,10 @@ class FreeResponseQuestionData extends QuestionData {
   String get answerRepresentation {
     String toReturn = _correctAnswer[0];
     if (_correctAnswer.length > 1) {
-      toReturn += ' Also Accepts: ';
+      toReturn += '. Also Accepts: ';
       for (int i = 1; i < _correctAnswer.length; i++) {
-        toReturn +=
-            '$_correctAnswer[i]' + (i + 1 == _correctAnswer.length ? '' : ', ');
+        toReturn += '${_correctAnswer[i]}' +
+            (i + 1 == _correctAnswer.length ? '' : ', ');
       }
     }
     return toReturn;
@@ -210,7 +241,7 @@ class FreeResponseQuestionData extends QuestionData {
   AnsweredFreeResponseQuestion get toAnsweredQuestion {
     return AnsweredFreeResponseQuestion(
       id: _id,
-      chosen: chosen,
+      chosen: selected,
       correctAnswer: _correctAnswer,
       event: event,
     );

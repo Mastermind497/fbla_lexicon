@@ -1,3 +1,4 @@
+import 'package:fbla_lexicon/src/user_interface/screens/end_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../business_logic/data/question_list.dart';
@@ -11,17 +12,24 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends State<QuestionScreen> {
   final List<Widget> questionWidgetList = [];
+
   int numQuestions;
   String title;
-
   int currentQuestion = 0;
-  bool ended = false;
 
-  void nextQuestion() {
-    setState(() {
-      currentQuestion++;
-      ended = currentQuestion == questionWidgetList.length;
+  void goToEndScreen(BuildContext context) {
+    Navigator.of(context).pushNamed(EndScreen.route, arguments: {
+      'questionList': questionWidgetList.toQuestionDataList,
     });
+  }
+
+  void nextQuestion(BuildContext context) {
+    if (currentQuestion + 1 == numQuestions)
+      goToEndScreen(context);
+    else
+      setState(() {
+        currentQuestion++;
+      });
   }
 
   void previousQuestion() {
@@ -43,26 +51,17 @@ class _QuestionScreenState extends State<QuestionScreen> {
           QuestionWidget.getQuestionWidget(
             questionList[i],
             i + 1,
-            nextQuestion,
+            () => nextQuestion(context),
             (i == 0 ? null : previousQuestion),
           ),
         );
       }
     }
 
-    int score = 0;
-    questionWidgetList.forEach((element) {
-      var data = QuestionWidget.getQuestionDataFrom(element);
-      if (data.isCorrect) score++;
-    });
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: Container(
-        child: ended
-            ? Text(
-                'Ended: Score: $score / $numQuestions = ${score / numQuestions * 100}%',
-              )
-            : questionWidgetList[currentQuestion],
+        child: questionWidgetList[currentQuestion],
       ),
     );
   }

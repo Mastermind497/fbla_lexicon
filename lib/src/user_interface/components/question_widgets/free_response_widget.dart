@@ -25,13 +25,13 @@ class _FreeResponseWidgetState extends State<FreeResponseWidget> {
   TextEditingController textEditingController = TextEditingController();
 
   void changedValue(String value) {
-    widget.data.chosen = value;
+    widget.data.selected = value;
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.data.chosen != null)
-      textEditingController.text = widget.data.chosen;
+    if (widget.data.selected != null)
+      textEditingController.text = widget.data.selected;
     return Column(
       children: [
         QuestionDataWidget(

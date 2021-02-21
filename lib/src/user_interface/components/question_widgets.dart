@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../business_logic/models/question.dart';
+import '../../business_logic/models/score.dart';
 import 'question_widgets/free_response_widget.dart';
 import 'question_widgets/multiple_choice_widget.dart';
 import 'question_widgets/multiple_response_widget.dart';
@@ -53,4 +54,18 @@ abstract class QuestionWidget {
     else
       return (widget as QuestionWidget).data;
   }
+}
+
+extension QuestionWidgetListExtension on List<Widget> {
+  List<QuestionData> get toQuestionDataList {
+    List<QuestionData> list = [];
+    this.forEach(
+      (element) => list.add(QuestionWidget.getQuestionDataFrom(element)),
+    );
+    return list;
+  }
+
+  int get getNumCorrect => this.toQuestionDataList.getNumCorrect;
+
+  Score get getScore => this.toQuestionDataList.getScore;
 }
