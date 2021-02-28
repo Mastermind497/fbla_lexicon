@@ -33,6 +33,7 @@ dependencies:
   string_similarity: ^1.1.0
   baseconvert: ^1.0.2
   percent_indicator: ^2.1.9+1
+  shared_preferences: '>= 0.5.12+4 < 2.0.0'
 
 dev_dependencies:
   flutter_test:
