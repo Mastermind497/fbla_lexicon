@@ -1,9 +1,10 @@
-import 'package:fbla_lexicon/src/user_interface/theme/style.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../business_logic/models/question.dart';
 import '../../business_logic/models/score.dart';
+import '../theme/style.dart';
+import 'welcome_screen.dart';
 
 class EndScreen extends StatefulWidget {
   static const route = '/end-screen';
@@ -16,12 +17,50 @@ class _EndScreenState extends State<EndScreen> {
   List<QuestionData> _questionDataList;
   Score _score;
 
+  Widget get continueButton {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.1,
+      width: MediaQuery.of(context).size.width * 0.9,
+      margin: createMargin(context),
+      padding: createPadding(context),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.resolveWith<Color>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return correctColor.withOpacity(.5);
+              }
+              return correctColor;
+            },
+          ),
+          shape: MaterialStateProperty.resolveWith<OutlinedBorder>(
+            (_) {
+              return RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              );
+            },
+          ),
+        ),
+        child: Text('Continue', style: buttonStyle),
+        onPressed: () => returnHome(context),
+      ),
+    );
+  }
+
   Widget get questionReview {
     List<Widget> list = [];
     for (int i = 0; i < _questionDataList.length; i++) {
       list.add(QuestionReview(_questionDataList[i], i + 1));
     }
+    list.add(continueButton);
+    list.add(SizedBox(height: 10));
     return ListView(children: list);
+  }
+
+  void returnHome(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      WelcomeScreen.route,
+    );
   }
 
   @override
@@ -67,7 +106,7 @@ class _EndScreenState extends State<EndScreen> {
             Container(
               height: MediaQuery.of(context).size.height * 0.660996,
               child: questionReview,
-            )
+            ),
           ],
         ),
       ),
@@ -150,7 +189,7 @@ class QuestionReview extends StatelessWidget {
         ),
         shape: rectangleBorder,
         margin: const EdgeInsets.all(5),
-        elevation: 10,
+        elevation: 5,
       ),
     );
   }

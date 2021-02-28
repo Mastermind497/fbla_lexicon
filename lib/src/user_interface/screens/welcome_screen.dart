@@ -1,7 +1,7 @@
-import 'package:fbla_lexicon/src/user_interface/screens/question_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/style.dart';
+import 'question_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const route = '/welcome';
@@ -86,25 +86,31 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     _scale = (1 - _controller.value);
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: GestureDetector(
-              onTap: () => startQuickQuiz(context, 'Quick Quiz'),
-              onTapDown: _onTapDown,
-              onTapUp: _onTapUp,
-              child: Transform.scale(
-                scale: _scale,
-                child: quickStartButton(
-                  MediaQuery.of(context),
-                  'Quick Start',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('FBLA Lexicon'),
+        automaticallyImplyLeading: false,
+      ),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+              child: GestureDetector(
+                onTap: () => startQuickQuiz(context, 'Quick Quiz'),
+                onTapDown: _onTapDown,
+                onTapUp: _onTapUp,
+                child: Transform.scale(
+                  scale: _scale,
+                  child: quickStartButton(
+                    MediaQuery.of(context),
+                    'Quick Start',
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
