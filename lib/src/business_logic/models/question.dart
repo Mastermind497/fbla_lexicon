@@ -49,7 +49,7 @@ class MultipleChoiceQuestionData extends QuestionData {
   AnsweredMultipleChoiceQuestion get toAnsweredQuestion {
     return AnsweredMultipleChoiceQuestion(
       id: _id,
-      chosen: selected,
+      selected: selected,
       correctAnswer: choices.where((element) => element.isCorrect).first,
       event: _event,
     );
@@ -61,7 +61,7 @@ class MultipleResponseQuestionData extends QuestionData {
   final String _question;
   final List<AnswerChoice> _choices;
   final List<AnswerChoice> _correctAnswer;
-  final List<AnswerChoice> _chosen;
+  final List<AnswerChoice> _selected;
   final Event _event;
 
   MultipleResponseQuestionData({
@@ -73,7 +73,7 @@ class MultipleResponseQuestionData extends QuestionData {
         _question = question,
         _choices = choices,
         _correctAnswer = <AnswerChoice>[],
-        _chosen = <AnswerChoice>[],
+        _selected = <AnswerChoice>[],
         _event = event {
     _correctAnswer.addAll(_choices.where((element) => element.isCorrect));
   }
@@ -83,8 +83,8 @@ class MultipleResponseQuestionData extends QuestionData {
   String get question => _question;
 
   bool get isCorrect {
-    if (_chosen != null && _chosen.length == _correctAnswer.length) {
-      _chosen.forEach((element) {
+    if (_selected != null && _selected.length == _correctAnswer.length) {
+      _selected.forEach((element) {
         if (!element.isCorrect) return false;
       });
       return true;
@@ -94,7 +94,7 @@ class MultipleResponseQuestionData extends QuestionData {
 
   List<AnswerChoice> get choices => _choices;
 
-  List<AnswerChoice> get selected => _chosen;
+  List<AnswerChoice> get selected => _selected;
 
   String get getSelected {
     String s = '';
@@ -117,23 +117,23 @@ class MultipleResponseQuestionData extends QuestionData {
   AnsweredMultipleResponseQuestion get toAnsweredQuestion {
     return AnsweredMultipleResponseQuestion(
       id: _id,
-      chosen: _chosen,
+      selected: _selected,
       correctAnswer: _correctAnswer,
       event: event,
     );
   }
 
   set selected(List<AnswerChoice> selected) {
-    _chosen.clear();
-    _chosen.addAll(selected);
+    _selected.clear();
+    _selected.addAll(selected);
   }
 
   void remove(AnswerChoice selected) =>
-      _chosen.removeWhere((element) => element == selected);
+      _selected.removeWhere((element) => element == selected);
 
-  void add(AnswerChoice selected) => _chosen.add(selected);
+  void add(AnswerChoice selected) => _selected.add(selected);
 
-  void addAllChosen(List<AnswerChoice> selected) => _chosen.addAll(selected);
+  void addAllChosen(List<AnswerChoice> selected) => _selected.addAll(selected);
 }
 
 class TrueFalseQuestionData extends QuestionData {
@@ -170,7 +170,7 @@ class TrueFalseQuestionData extends QuestionData {
   AnsweredTrueFalseQuestion get toAnsweredQuestion {
     return AnsweredTrueFalseQuestion(
       id: _id,
-      chosen: selected,
+      selected: selected,
       correctAnswer: _correctAnswer,
       event: event,
     );
@@ -241,9 +241,14 @@ class FreeResponseQuestionData extends QuestionData {
   AnsweredFreeResponseQuestion get toAnsweredQuestion {
     return AnsweredFreeResponseQuestion(
       id: _id,
-      chosen: selected,
+      selected: selected,
       correctAnswer: _correctAnswer,
       event: event,
     );
   }
+}
+
+extension QuestionDataList on List<QuestionData> {
+  List<AnsweredQuestion> get toAnsweredQuestionList =>
+      this.map((QuestionData element) => element.toAnsweredQuestion).toList();
 }

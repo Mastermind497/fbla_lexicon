@@ -8,52 +8,54 @@ import 'question_foundation.dart';
 
 class AnsweredMultipleChoiceQuestion implements AnsweredQuestion {
   final String _id;
-  final AnswerChoice _chosen;
+  final AnswerChoice _selected;
   final AnswerChoice _correctAnswer;
   final Event _event;
 
   const AnsweredMultipleChoiceQuestion({
     @required String id,
-    @required AnswerChoice chosen,
+    @required AnswerChoice selected,
     @required AnswerChoice correctAnswer,
     @required Event event,
   })  : _id = id,
-        _chosen = chosen,
+        _selected = selected,
         _correctAnswer = correctAnswer,
         _event = event;
 
   String get id => _id;
 
-  AnswerChoice get chosen => _chosen;
+  AnswerChoice get selected => _selected;
 
-  bool get isCorrect => _chosen == _correctAnswer;
+  bool get isCorrect => _selected == _correctAnswer;
 
   Event get event => _event;
+
+  String get toFileString => '$_id | ${_selected.id}';
 }
 
 class AnsweredMultipleResponseQuestion implements AnsweredQuestion {
   final String _id;
-  final List<AnswerChoice> _chosen;
+  final List<AnswerChoice> _selected;
   final List<AnswerChoice> _correctAnswer;
   final Event _event;
 
   const AnsweredMultipleResponseQuestion({
     @required String id,
-    @required List<AnswerChoice> chosen,
+    @required List<AnswerChoice> selected,
     @required List<AnswerChoice> correctAnswer,
     @required Event event,
   })  : _id = id,
-        _chosen = chosen,
+        _selected = selected,
         _correctAnswer = correctAnswer,
         _event = event;
 
   String get id => _id;
 
-  List<AnswerChoice> get chosen => _chosen;
+  List<AnswerChoice> get selected => _selected;
 
   bool get isCorrect {
-    if (_chosen != null && _chosen.length == _correctAnswer.length) {
-      _chosen.forEach((element) {
+    if (_selected != null && _selected.length == _correctAnswer.length) {
+      _selected.forEach((element) {
         if (!element.isCorrect) return false;
       });
       return true;
@@ -62,52 +64,57 @@ class AnsweredMultipleResponseQuestion implements AnsweredQuestion {
   }
 
   Event get event => _event;
+
+  String get toFileString =>
+      '$_id | ${_selected.toString().substring(1, _selected.toString().length)}';
 }
 
 class AnsweredTrueFalseQuestion implements AnsweredQuestion {
   final String _id;
-  final bool _chosen;
+  final bool _selected;
   final bool _correctAnswer;
   final Event _event;
 
   const AnsweredTrueFalseQuestion({
     @required String id,
-    @required bool chosen,
+    @required bool selected,
     @required bool correctAnswer,
     @required Event event,
   })  : _id = id,
-        _chosen = chosen,
+        _selected = selected,
         _correctAnswer = correctAnswer,
         _event = event;
 
   String get id => _id;
 
-  bool get chosen => _chosen;
+  bool get selected => _selected;
 
-  bool get isCorrect => _chosen == _correctAnswer;
+  bool get isCorrect => _selected == _correctAnswer;
 
   Event get event => _event;
+
+  String get toFileString => '$_id | $_selected';
 }
 
 class AnsweredFreeResponseQuestion implements AnsweredQuestion {
   final String _id;
-  final String _chosen;
+  final String _selected;
   final List<String> _correctAnswer;
   final Event _event;
 
   const AnsweredFreeResponseQuestion({
     @required String id,
-    @required String chosen,
+    @required String selected,
     @required List<String> correctAnswer,
     @required Event event,
   })  : _id = id,
-        _chosen = chosen,
+        _selected = selected,
         _correctAnswer = correctAnswer,
         _event = event;
 
   String get id => _id;
 
-  String get chosen => _chosen;
+  String get selected => _selected;
 
   List<String> get answer => _correctAnswer;
 
@@ -117,14 +124,14 @@ class AnsweredFreeResponseQuestion implements AnsweredQuestion {
   /// 25% inaccuracy to account for minor spelling mistakes.
   bool get isCorrect {
     double similarity = 0;
-    if (chosen == null) return false;
+    if (selected == null) return false;
     _correctAnswer.forEach(
       (element) {
         similarity = max(
           similarity,
           StringSimilarity.compareTwoStrings(
             element.toUpperCase(),
-            chosen.toUpperCase(),
+            selected.toUpperCase(),
           ),
         );
       },
@@ -144,4 +151,6 @@ class AnsweredFreeResponseQuestion implements AnsweredQuestion {
     }
     return toReturn;
   }
+
+  String get toFileString => '$_id | $_selected';
 }
