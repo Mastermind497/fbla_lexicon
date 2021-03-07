@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../data/question_list.dart';
 import '../../data/utils.dart';
+import '../question.dart';
 import '../score.dart';
 import 'event.dart';
 
@@ -17,7 +19,30 @@ abstract class AnsweredQuestion extends RawQuestionData {
   bool get isCorrect;
   Event get event;
 
+  String get toFileString;
+
   const AnsweredQuestion();
+  static AnsweredQuestion fromFileString(String fileString) {
+    final parts = fileString.split(' | ');
+    final data = questionList.firstWhere((element) => element.id == parts[0]);
+
+    if (data is MultipleChoiceQuestionData) {
+      data.selected =
+          data.choices.firstWhere((element) => element.toString() == parts[1]);
+    } else if (data is MultipleResponseQuestionData) {
+      data.selected = parts[1]
+          .split(', ')
+          .map((element) =>
+              data.choices.firstWhere((choice) => choice.toString() == element))
+          .toList();
+    } else if (data is TrueFalseQuestionData) {
+      data.selected = parts[1] as bool;
+    } else if (data is FreeResponseQuestionData) {
+      data.selected = parts[1];
+    }
+
+    return data.toAnsweredQuestion;
+  }
 }
 
 abstract class QuestionData extends RawQuestionData {
