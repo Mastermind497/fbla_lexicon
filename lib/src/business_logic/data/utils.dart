@@ -23,10 +23,10 @@ void shuffle<T>(List<T> collection) {
 /// Generates an ID from the [event] and [number], converting the number to
 /// base 61 from base 10 to have storage efficiency and future-proofing
 String generateId(Event event, int number) {
-  // Converts Base 10 to Base 61 with at least 3 characters, allowing more
+  // Converts Base 10 to Base 64 with at least 3 characters, allowing more
   // than 200,000 combinations
-  var inBase61 =
-      representAsString(base(number, inBase: 10, outBase: 61)).padLeft(3, '0');
+  var inBase64 =
+      representAsString(base(number, inBase: 10, outBase: 64)).padLeft(3, '0');
   var eventAbbreviation = event.nameId;
-  return '$eventAbbreviation-$inBase61';
+  return '$eventAbbreviation-$inBase64';
 }
