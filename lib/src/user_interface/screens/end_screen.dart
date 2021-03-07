@@ -1,3 +1,4 @@
+import 'package:fbla_lexicon/src/business_logic/data/data_interacter.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -58,7 +59,20 @@ class _EndScreenState extends State<EndScreen> {
     return ListView(children: list);
   }
 
+  Future<void> updateAnsweredQuestions() async {
+    writeAnsweredQuestion(
+      _questionDataList
+          .map(
+            (element) => element.toAnsweredQuestion,
+          )
+          .toList(
+            growable: false,
+          ),
+    );
+  }
+
   void returnHome(BuildContext context) {
+    updateAnsweredQuestions();
     Navigator.of(context).pushNamed(
       WelcomeScreen.route,
     );
