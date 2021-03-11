@@ -16,8 +16,22 @@ Future<File> get answeredQuestionFile async {
 }
 
 Future<File> writeAnsweredQuestion(List<AnsweredQuestion> list) async {
-  final file = await answeredQuestionFile;
+  // Remove duplicates
+  List<AnsweredQuestion> currentAnsweredQuestionList =
+      (await answeredQuestionData).map((element) =>
+          AnsweredQuestion.fromFileString(element).toAnsweredQuestion);
+
+  // For Each Duplicate, Replace the new one with the old
   for (final v in list) {
+    if (currentAnsweredQuestionList.contains(v)) {
+      currentAnsweredQuestionList.remove(v);
+      currentAnsweredQuestionList.add(v);
+    }
+  }
+
+  final file = await answeredQuestionFile;
+  file.writeAsString('');
+  for (final v in currentAnsweredQuestionList) {
     file.writeAsString('${v.toFileString}\n', mode: FileMode.append);
     print(v);
   }

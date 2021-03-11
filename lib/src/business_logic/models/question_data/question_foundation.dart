@@ -14,11 +14,15 @@ abstract class RawQuestionData {
   const RawQuestionData();
 }
 
-abstract class AnsweredQuestion extends RawQuestionData {
+abstract class AnsweredQuestion extends RawQuestionData with EquatableMixin {
   String get id;
   bool get isCorrect;
   Event get event;
   String get toFileString;
+
+  List<Object> get props => [id];
+
+  bool get stringify => false;
 
   const AnsweredQuestion();
   static QuestionData fromFileString(String fileString) {

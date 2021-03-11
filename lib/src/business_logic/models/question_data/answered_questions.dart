@@ -31,6 +31,10 @@ class AnsweredMultipleChoiceQuestion implements AnsweredQuestion {
   Event get event => _event;
 
   String get toFileString => '$_id | ${_selected.id}';
+
+  List<Object> get props => [id];
+
+  bool get stringify => false;
 }
 
 class AnsweredMultipleResponseQuestion implements AnsweredQuestion {
@@ -67,6 +71,10 @@ class AnsweredMultipleResponseQuestion implements AnsweredQuestion {
 
   String get toFileString =>
       '$_id | ${_selected.toString().substring(1, _selected.toString().length)}';
+
+  List<Object> get props => [id];
+
+  bool get stringify => false;
 }
 
 class AnsweredTrueFalseQuestion implements AnsweredQuestion {
@@ -94,6 +102,10 @@ class AnsweredTrueFalseQuestion implements AnsweredQuestion {
   Event get event => _event;
 
   String get toFileString => '$_id | $_selected';
+
+  List<Object> get props => [id];
+
+  bool get stringify => false;
 }
 
 class AnsweredFreeResponseQuestion implements AnsweredQuestion {
@@ -153,4 +165,8 @@ class AnsweredFreeResponseQuestion implements AnsweredQuestion {
   }
 
   String get toFileString => '$_id | $_selected';
+
+  List<Object> get props => [id];
+
+  bool get stringify => false;
 }
