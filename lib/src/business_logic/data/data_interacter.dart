@@ -19,6 +19,7 @@ Future<File> writeAnsweredQuestion(List<AnsweredQuestion> list) async {
   final file = await answeredQuestionFile;
   for (final v in list) {
     file.writeAsString('${v.toFileString}\n', mode: FileMode.append);
+    print(v);
   }
   return file;
 }
@@ -27,6 +28,7 @@ Future<List<String>> get answeredQuestionData async {
   try {
     final file = await answeredQuestionFile;
     final string = await file.readAsString();
+    print(string.split('\n'));
     return string.split('\n');
   } catch (e) {
     return ['ERROR! ALARM ALARM'];

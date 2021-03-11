@@ -53,6 +53,8 @@ abstract class QuestionData extends RawQuestionData {
   String get getSelected;
   String get correctAnswer;
 
+  void reset();
+
   const QuestionData();
 }
 

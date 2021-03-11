@@ -54,6 +54,8 @@ class MultipleChoiceQuestionData extends QuestionData {
       event: _event,
     );
   }
+
+  void reset() => this.selected = null;
 }
 
 class MultipleResponseQuestionData extends QuestionData {
@@ -134,6 +136,8 @@ class MultipleResponseQuestionData extends QuestionData {
   void add(AnswerChoice selected) => _selected.add(selected);
 
   void addAllChosen(List<AnswerChoice> selected) => _selected.addAll(selected);
+
+  void reset() => selected.clear();
 }
 
 class TrueFalseQuestionData extends QuestionData {
@@ -175,6 +179,8 @@ class TrueFalseQuestionData extends QuestionData {
       event: event,
     );
   }
+
+  void reset() => selected = null;
 }
 
 class FreeResponseQuestionData extends QuestionData {
@@ -246,6 +252,8 @@ class FreeResponseQuestionData extends QuestionData {
       event: event,
     );
   }
+
+  void reset() => selected = '';
 }
 
 extension QuestionDataList on List<QuestionData> {

@@ -46,6 +46,9 @@ class _QuestionScreenState extends State<QuestionScreen> {
 
     if (questionWidgetList.isEmpty) {
       var questionList = randomQuestions(numQuestions);
+      for (var v in questionList) {
+        v.reset();
+      }
       for (int i = 0; i < numQuestions; i++) {
         questionWidgetList.add(
           QuestionWidget.getQuestionWidget(
