@@ -18,11 +18,10 @@ abstract class AnsweredQuestion extends RawQuestionData {
   String get id;
   bool get isCorrect;
   Event get event;
-
   String get toFileString;
 
   const AnsweredQuestion();
-  static AnsweredQuestion fromFileString(String fileString) {
+  static QuestionData fromFileString(String fileString) {
     final parts = fileString.split(' | ');
     final data = questionList.firstWhere((element) => element.id == parts[0]);
 
@@ -41,7 +40,7 @@ abstract class AnsweredQuestion extends RawQuestionData {
       data.selected = parts[1];
     }
 
-    return data.toAnsweredQuestion;
+    return data;
   }
 }
 
