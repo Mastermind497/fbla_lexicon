@@ -1,4 +1,4 @@
-import 'package:fbla_lexicon/src/user_interface/components/question_score.dart';
+import '../components/question_score.dart';
 
 import '../theme/style.dart';
 import 'package:flutter/material.dart';

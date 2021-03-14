@@ -1,5 +1,5 @@
-import 'package:fbla_lexicon/src/user_interface/screens/end_screen.dart';
-import 'package:fbla_lexicon/src/user_interface/screens/question_screen.dart';
+import 'user_interface/screens/end_screen.dart';
+import 'user_interface/screens/question_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'user_interface/screens/welcome_screen.dart';

@@ -1,4 +1,4 @@
-import 'package:fbla_lexicon/src/user_interface/screens/end_screen.dart';
+import 'end_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../business_logic/data/question_list.dart';
