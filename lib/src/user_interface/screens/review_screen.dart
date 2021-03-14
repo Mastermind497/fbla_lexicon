@@ -41,16 +41,18 @@ class _ReviewScreenState extends State<ReviewScreen> {
               ? Column(
                   children: [
                     QuestionScore(Score(snapshot.data.toAnsweredQuestionList)),
-                    ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return QuestionReview(
-                          snapshot.data[index],
-                          index + 1,
-                          true,
-                          () => {},
-                        );
-                      },
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return QuestionReview(
+                            snapshot.data[index],
+                            index + 1,
+                            true,
+                            () => {},
+                          );
+                        },
+                      ),
                     ),
                   ],
                 )
