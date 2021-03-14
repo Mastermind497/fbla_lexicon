@@ -32,27 +32,29 @@ class _FreeResponseWidgetState extends State<FreeResponseWidget> {
   Widget build(BuildContext context) {
     if (widget.data.selected != null)
       textEditingController.text = widget.data.selected;
-    return Column(
-      children: [
-        QuestionDataWidget(
-          widget.data,
-          widget.questionNumber,
-          size: 0.45,
-          next: widget.nextQuestion,
-          previous: widget.previousQuestion,
-        ),
-        Padding(
-          padding: createPadding(context, 2),
-          child: TextField(
-            decoration: InputDecoration(
-              border: const OutlineInputBorder(borderRadius: borderRadius),
-              labelText: 'Answer',
-            ),
-            controller: textEditingController,
-            onSubmitted: (String value) => changedValue(value),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          QuestionDataWidget(
+            widget.data,
+            widget.questionNumber,
+            size: 0.45,
+            next: widget.nextQuestion,
+            previous: widget.previousQuestion,
           ),
-        )
-      ],
+          Padding(
+            padding: createPadding(context, 2),
+            child: TextField(
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(borderRadius: borderRadius),
+                labelText: 'Answer',
+              ),
+              controller: textEditingController,
+              onSubmitted: (String value) => changedValue(value),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
