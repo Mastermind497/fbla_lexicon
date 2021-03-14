@@ -86,31 +86,25 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     _scale = (1 - _controller.value);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('FBLA Lexicon'),
-        automaticallyImplyLeading: false,
-      ),
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: GestureDetector(
-                onTap: () => startQuickQuiz(context, 'Quick Quiz'),
-                onTapDown: _onTapDown,
-                onTapUp: _onTapUp,
-                child: Transform.scale(
-                  scale: _scale,
-                  child: quickStartButton(
-                    MediaQuery.of(context),
-                    'Quick Start',
-                  ),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(
+            child: GestureDetector(
+              onTap: () => startQuickQuiz(context, 'Quick Quiz'),
+              onTapDown: _onTapDown,
+              onTapUp: _onTapUp,
+              child: Transform.scale(
+                scale: _scale,
+                child: quickStartButton(
+                  MediaQuery.of(context),
+                  'Quick Start',
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -26,20 +26,21 @@ abstract class AnsweredQuestion extends RawQuestionData with EquatableMixin {
 
   const AnsweredQuestion();
   static QuestionData fromFileString(String fileString) {
+    if (fileString == '') return null;
     final parts = fileString.split(' | ');
     final data = questionList.firstWhere((element) => element.id == parts[0]);
 
     if (data is MultipleChoiceQuestionData) {
-      data.selected =
-          data.choices.firstWhere((element) => element.toString() == parts[1]);
+      data.selected = data.choices
+          .firstWhere((element) => element.id.toString() == parts[1]);
     } else if (data is MultipleResponseQuestionData) {
       data.selected = parts[1]
           .split(', ')
-          .map((element) =>
-              data.choices.firstWhere((choice) => choice.toString() == element))
+          .map((element) => data.choices
+              .firstWhere((choice) => choice.id.toString() == element))
           .toList();
     } else if (data is TrueFalseQuestionData) {
-      data.selected = parts[1] as bool;
+      data.selected = parts[1] == 'true';
     } else if (data is FreeResponseQuestionData) {
       data.selected = parts[1];
     }

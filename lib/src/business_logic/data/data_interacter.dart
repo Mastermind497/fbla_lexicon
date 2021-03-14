@@ -12,29 +12,39 @@ Future<String> get localPath async {
 
 Future<File> get answeredQuestionFile async {
   final path = await localPath;
-  return File('$path/answeredQuestion.data');
+  return File('$path/answeredQuestion.data')
+    ..writeAsString('', mode: FileMode.append);
 }
 
 Future<File> writeAnsweredQuestion(List<AnsweredQuestion> list) async {
   // Remove duplicates
   List<AnsweredQuestion> currentAnsweredQuestionList =
-      (await answeredQuestionData).map((element) =>
-          AnsweredQuestion.fromFileString(element).toAnsweredQuestion);
+      (await answeredQuestionData)
+          .map(
+            (element) =>
+                AnsweredQuestion.fromFileString(element)?.toAnsweredQuestion,
+          )
+          .toList();
 
   // For Each Duplicate, Replace the new one with the old
   for (final v in list) {
     if (currentAnsweredQuestionList.contains(v)) {
       currentAnsweredQuestionList.remove(v);
       currentAnsweredQuestionList.add(v);
+      list.remove(v);
     }
   }
 
+  currentAnsweredQuestionList.addAll(list);
+
   final file = await answeredQuestionFile;
-  file.writeAsString('');
+  String output = '';
   for (final v in currentAnsweredQuestionList) {
-    file.writeAsString('${v.toFileString}\n', mode: FileMode.append);
-    print(v);
+    if (v == null) continue;
+    output += '${v.toFileString}||';
   }
+  file.writeAsString(output);
+  print(output);
   return file;
 }
 
@@ -42,8 +52,8 @@ Future<List<String>> get answeredQuestionData async {
   try {
     final file = await answeredQuestionFile;
     final string = await file.readAsString();
-    print(string.split('\n'));
-    return string.split('\n');
+    print(string.split('||'));
+    return string.split('||');
   } catch (e) {
     return ['ERROR! ALARM ALARM'];
   }

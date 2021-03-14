@@ -6,7 +6,7 @@ import '../../business_logic/models/question.dart';
 import '../../business_logic/models/score.dart';
 import '../components/question_widgets/question_review_widget.dart';
 import '../theme/style.dart';
-import 'welcome_screen.dart';
+import 'tab_screen.dart';
 
 class EndScreen extends StatefulWidget {
   static const route = '/end-screen';
@@ -74,7 +74,7 @@ class _EndScreenState extends State<EndScreen> {
   void returnHome(BuildContext context) {
     updateAnsweredQuestions();
     Navigator.of(context).pushNamed(
-      WelcomeScreen.route,
+      TabScreen.route,
     );
   }
 
