@@ -70,7 +70,7 @@ class AnsweredMultipleResponseQuestion implements AnsweredQuestion {
   Event get event => _event;
 
   String get toFileString =>
-      '$_id | ${_selected.toString().substring(1, _selected.toString().length)}';
+      '$_id | ${_selected.map((element) => element.id).toString().substring(1, selected.length)}';
 
   List<Object> get props => [id];
 
