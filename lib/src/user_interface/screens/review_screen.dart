@@ -1,3 +1,4 @@
+import '../theme/style.dart';
 import 'package:flutter/material.dart';
 
 import '../../business_logic/data/data_interacter.dart';
@@ -18,6 +19,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
         .toList()
           ..removeWhere((element) => element == null);
     return questionList;
+  }
+
+  Widget get emptyQuestionNotification {
+    return Center(
+      child: Expanded(
+        child: Text('No Questions Yet', style: bigGreyText),
+      ),
+    );
   }
 
   @override
