@@ -1,20 +1,14 @@
 import 'question.dart';
 
 class Score {
-  final List<QuestionData> questionDataList;
+  final List<AnsweredQuestion> answeredQuestionList;
   final int numCorrect;
   final Percent correctPercent;
 
-  Score(this.questionDataList)
-      : numCorrect = questionDataList.getNumCorrect,
-        correctPercent =
-            Percent(questionDataList.getNumCorrect, questionDataList.length);
-
-  List<AnsweredQuestion> get answeredQuestionList {
-    List<AnsweredQuestion> list = [];
-    questionDataList.forEach((element) => list.add(element.toAnsweredQuestion));
-    return list;
-  }
+  Score(this.answeredQuestionList)
+      : numCorrect = answeredQuestionList.getNumCorrect,
+        correctPercent = Percent(
+            answeredQuestionList.getNumCorrect, answeredQuestionList.length);
 
   int get getNumCorrect => numCorrect;
 

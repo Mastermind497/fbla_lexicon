@@ -255,8 +255,3 @@ class FreeResponseQuestionData extends QuestionData {
 
   void reset() => selected = '';
 }
-
-extension QuestionDataList on List<QuestionData> {
-  List<AnsweredQuestion> get toAnsweredQuestionList =>
-      this.map((QuestionData element) => element.toAnsweredQuestion).toList();
-}

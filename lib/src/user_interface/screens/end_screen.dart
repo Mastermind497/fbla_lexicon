@@ -1,9 +1,8 @@
-import 'package:fbla_lexicon/src/business_logic/data/data_interacter.dart';
 import 'package:flutter/material.dart';
-import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../business_logic/data/data_interacter.dart';
 import '../../business_logic/models/question.dart';
-import '../../business_logic/models/score.dart';
+import '../components/question_score.dart';
 import '../components/question_widgets/question_review_widget.dart';
 import '../theme/style.dart';
 import 'tab_screen.dart';
@@ -83,7 +82,7 @@ class _EndScreenState extends State<EndScreen> {
     if (_questionDataList == null) {
       final routeArgs = ModalRoute.of(context).settings.arguments as Map;
       _questionDataList = routeArgs['questionList'];
-      _score = Score(_questionDataList);
+      _score = Score(_questionDataList.toAnsweredQuestionList);
     }
 
     return Scaffold(
@@ -94,30 +93,7 @@ class _EndScreenState extends State<EndScreen> {
       body: Container(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${_score.getCorrectPercent}',
-                    style: endScore,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: LinearPercentIndicator(
-                      width: MediaQuery.of(context).size.width - 50,
-                      lineHeight: 30.0,
-                      percent: _score.getCorrectPercent.asDouble,
-                      animation: true,
-                      progressColor: correctColor,
-                      backgroundColor: incorrectColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            QuestionScore(_score),
             Container(
               height: MediaQuery.of(context).size.height * 0.660996,
               child: questionReview,

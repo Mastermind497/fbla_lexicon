@@ -49,6 +49,18 @@ abstract class AnsweredQuestion extends RawQuestionData with EquatableMixin {
   }
 }
 
+extension AnsweredQuestionList on List<AnsweredQuestion> {
+  int get getNumCorrect {
+    int total = 0;
+    this.forEach((element) {
+      if (element.isCorrect) total++;
+    });
+    return total;
+  }
+
+  Score get score => Score(this);
+}
+
 abstract class QuestionData extends RawQuestionData {
   String get id;
   String get question;
@@ -63,7 +75,7 @@ abstract class QuestionData extends RawQuestionData {
   const QuestionData();
 }
 
-extension ListExtension on List<QuestionData> {
+extension QuestionDataList on List<QuestionData> {
   int get getNumCorrect {
     int total = 0;
     this.forEach((element) {
@@ -72,7 +84,10 @@ extension ListExtension on List<QuestionData> {
     return total;
   }
 
-  Score get getScore => Score(this);
+  List<AnsweredQuestion> get toAnsweredQuestionList =>
+      this.map((QuestionData element) => element.toAnsweredQuestion).toList();
+
+  Score get getScore => Score(this.toAnsweredQuestionList);
 }
 
 class AnswerChoice extends Equatable {

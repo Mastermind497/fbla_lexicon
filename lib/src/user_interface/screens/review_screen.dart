@@ -1,3 +1,5 @@
+import 'package:fbla_lexicon/src/user_interface/components/question_score.dart';
+
 import '../theme/style.dart';
 import 'package:flutter/material.dart';
 
@@ -35,17 +37,22 @@ class _ReviewScreenState extends State<ReviewScreen> {
       future: updateAnsweredQuestions(),
       builder: (context, AsyncSnapshot<List<QuestionData>> snapshot) {
         if (snapshot.hasData) {
-          return (questionList.length > 0
-              ? ListView.builder(
-                  itemCount: snapshot.data.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return QuestionReview(
-                      snapshot.data[index],
-                      index + 1,
-                      true,
-                      () => {},
-                    );
-                  },
+          return (snapshot.data.length > 0
+              ? Column(
+                  children: [
+                    QuestionScore(Score(snapshot.data.toAnsweredQuestionList)),
+                    ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return QuestionReview(
+                          snapshot.data[index],
+                          index + 1,
+                          true,
+                          () => {},
+                        );
+                      },
+                    ),
+                  ],
                 )
               : Container(
                   child: Text('No Questions Yet'),
