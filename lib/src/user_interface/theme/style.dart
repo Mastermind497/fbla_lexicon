@@ -71,7 +71,7 @@ final selectionBodyCorrect = TextStyle(
 
 const bigGreyText = TextStyle(
   color: Colors.grey,
-  fontSize: 50,
+  fontSize: 45,
 );
 
 final selectionBodyIncorrect = TextStyle(

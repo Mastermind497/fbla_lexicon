@@ -42,7 +42,8 @@ class MultipleChoiceQuestionData extends QuestionData {
 
   List<AnswerChoice> get choices => _choices;
 
-  String get getSelected => selected.content;
+  String get getSelected =>
+      (selected == null ? "You didn't answer" : selected.content);
 
   String get correctAnswer => _correctAnswer.content;
 
@@ -99,9 +100,18 @@ class MultipleResponseQuestionData extends QuestionData {
   List<AnswerChoice> get selected => _selected;
 
   String get getSelected {
+    if (selected == null || selected.length == 0) {
+      return "You didn't answer";
+    }
     String s = '';
     for (int i = 0; i < selected.length; i++) {
-      if (i == selected.length - 1) s += 'and ${selected[i]}';
+      if (i == selected.length - 1) {
+        if (selected.length != 0)
+          s += 'and ${selected[i].content}';
+        else
+          s += '${selected[i].content}';
+      } else
+        s += '${selected[i].content}, ';
     }
     return s;
   }
@@ -109,7 +119,13 @@ class MultipleResponseQuestionData extends QuestionData {
   String get correctAnswer {
     String s = '';
     for (int i = 0; i < _correctAnswer.length; i++) {
-      if (i == _correctAnswer.length - 1) s += 'and ${_correctAnswer[i]}';
+      if (i == _correctAnswer.length - 1) {
+        if (_correctAnswer.length != 0)
+          s += 'and ${_correctAnswer[i].content}';
+        else
+          s += '${_correctAnswer[i].content}';
+      } else
+        s += '${_correctAnswer[i].content}, ';
     }
     return s;
   }
@@ -127,7 +143,7 @@ class MultipleResponseQuestionData extends QuestionData {
 
   set selected(List<AnswerChoice> selected) {
     _selected.clear();
-    _selected.addAll(selected);
+    if (selected != null) _selected.addAll(selected);
   }
 
   void remove(AnswerChoice selected) =>
@@ -167,7 +183,11 @@ class TrueFalseQuestionData extends QuestionData {
 
   bool get answer => _correctAnswer;
 
-  String get getSelected => selected ? 'True' : 'False';
+  String get getSelected => (selected == null
+      ? "You didn't answer"
+      : selected
+          ? 'True'
+          : 'False');
 
   String get correctAnswer => answer ? 'True' : 'False';
 

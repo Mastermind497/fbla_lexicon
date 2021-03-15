@@ -16,7 +16,23 @@ Future<File> get answeredQuestionFile async {
     ..writeAsString('', mode: FileMode.append);
 }
 
+Future<List<QuestionData>> get clearAnsweredQuestionData async {
+  final data = (await answeredQuestionData)
+      .map(
+        (element) => AnsweredQuestion.fromFileString(element),
+      )
+      .toList()
+        ..removeWhere((element) => element == null);
+  (await answeredQuestionFile).writeAsString('');
+  return data;
+}
+
 Future<File> writeAnsweredQuestion(List<AnsweredQuestion> list) async {
+  final file = await answeredQuestionFile;
+  if (list == null || list.length == 0) {
+    print('Exited');
+    return file;
+  }
   // Remove duplicates
   List<AnsweredQuestion> currentAnsweredQuestionList =
       (await answeredQuestionData)
@@ -37,7 +53,6 @@ Future<File> writeAnsweredQuestion(List<AnsweredQuestion> list) async {
 
   currentAnsweredQuestionList.addAll(list);
 
-  final file = await answeredQuestionFile;
   String output = '';
   for (final v in currentAnsweredQuestionList) {
     if (v == null) continue;

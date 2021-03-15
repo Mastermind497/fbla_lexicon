@@ -25,8 +25,9 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
   Widget get emptyQuestionNotification {
     return Center(
-      child: Expanded(
-        child: Text('No Questions Yet', style: bigGreyText),
+      child: Text(
+        'No Questions Yet',
+        style: bigGreyText,
       ),
     );
   }
@@ -48,8 +49,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
                           return QuestionReview(
                             snapshot.data[index],
                             index + 1,
-                            true,
-                            () => {},
                           );
                         },
                       ),
@@ -57,7 +56,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                   ],
                 )
               : Container(
-                  child: Text('No Questions Yet'),
+                  child: emptyQuestionNotification,
                 ));
         } else {
           return CircularProgressIndicator();

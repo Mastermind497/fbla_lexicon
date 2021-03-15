@@ -31,16 +31,24 @@ abstract class AnsweredQuestion extends RawQuestionData with EquatableMixin {
     final data = questionList.firstWhere((element) => element.id == parts[0]);
 
     if (data is MultipleChoiceQuestionData) {
-      data.selected = data.choices
-          .firstWhere((element) => element.id.toString() == parts[1]);
+      if (parts[1] == '')
+        data.selected = null;
+      else
+        data.selected = data.choices
+            .firstWhere((element) => element.id.toString() == parts[1]);
     } else if (data is MultipleResponseQuestionData) {
-      data.selected = parts[1]
-          .split(', ')
-          .map((element) => data.choices
-              .firstWhere((choice) => choice.id.toString() == element))
-          .toList();
+      if (parts[1] == '')
+        data.selected = [];
+      else
+        data.selected = parts[1]
+            .split(', ')
+            .map((element) =>
+                data.choices.firstWhere(
+                    (choice) => (choice.id.toString() == element)) ??
+                data.choices[1])
+            .toList();
     } else if (data is TrueFalseQuestionData) {
-      data.selected = parts[1] == 'true';
+      data.selected = (parts[1] == '' ? null : parts[1] == 'true');
     } else if (data is FreeResponseQuestionData) {
       data.selected = parts[1];
     }
@@ -84,8 +92,9 @@ extension QuestionDataList on List<QuestionData> {
     return total;
   }
 
-  List<AnsweredQuestion> get toAnsweredQuestionList =>
-      this.map((QuestionData element) => element.toAnsweredQuestion).toList();
+  List<AnsweredQuestion> get toAnsweredQuestionList => (this.length > 0
+      ? this.map((QuestionData element) => element.toAnsweredQuestion).toList()
+      : []);
 
   Score get getScore => Score(this.toAnsweredQuestionList);
 }
