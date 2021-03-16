@@ -13,7 +13,7 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> {
-  final List<Widget> _pages = [
+  List<Widget> _pages = [
     WelcomeScreen(),
     ReviewScreen(),
   ];
@@ -74,7 +74,7 @@ class _TabScreenState extends State<TabScreen> {
                             storedQuestions =
                                 (await clearAnsweredQuestionData) ?? [];
                             setState(() {
-                              print('Cleared');
+                              _pages[_reviewIndex] = ReviewScreen();
                             });
                             Navigator.of(context).pop();
                             ScaffoldMessenger.of(context).showSnackBar(
