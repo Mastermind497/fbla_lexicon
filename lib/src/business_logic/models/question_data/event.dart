@@ -33,7 +33,7 @@ class Event {
     'Business Calculations',
     'bcal',
   );
-  static const Event businessCommunications = Event._(
+  static const Event businessCommunication = Event._(
     'Business Communication',
     'bcom',
   );
@@ -68,6 +68,10 @@ class Event {
   static const Event futureBusinessLeader = Event._(
     'Future Business Leader',
     'fbla',
+  );
+  static const Event globalBusiness = Event._(
+    'Global Business',
+    'glob',
   );
   static const Event healthCareAdministration = Event._(
     'Health Care Administartion',
