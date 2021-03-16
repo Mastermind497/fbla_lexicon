@@ -43,7 +43,18 @@ class _EndScreenState extends State<EndScreen> {
           ),
         ),
         child: Text('Continue', style: buttonStyle),
-        onPressed: () => returnHome(context),
+        onPressed: () {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text(
+                'This Round has been Saved',
+              ),
+              duration: const Duration(milliseconds: 2500),
+              backgroundColor: correctColor,
+            ),
+          );
+          returnHome(context);
+        },
       ),
     );
   }
