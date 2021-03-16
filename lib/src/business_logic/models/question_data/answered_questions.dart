@@ -117,7 +117,7 @@ class AnsweredTrueFalseQuestion implements AnsweredQuestion {
 
 class AnsweredFreeResponseQuestion implements AnsweredQuestion {
   final String _id;
-  final String _selected = '';
+  final String _selected;
   final List<String> _correctAnswer;
   final Event _event;
 
@@ -127,7 +127,7 @@ class AnsweredFreeResponseQuestion implements AnsweredQuestion {
     @required List<String> correctAnswer,
     @required Event event,
   })  : _id = id,
-        _selected = selected,
+        _selected = selected ?? '',
         _correctAnswer = correctAnswer,
         _event = event;
 
