@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.fbla_lexicon">
    <application
-        android:label="fbla_lexicon"
+        android:label="FBLA Lexicon"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
