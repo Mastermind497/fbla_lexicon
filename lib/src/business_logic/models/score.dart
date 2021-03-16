@@ -25,6 +25,6 @@ class Percent {
 
   @override
   String toString() {
-    return "${(score / (1.0 * options) * 100)}%";
+    return "${(score / (1.0 * options) * 100).toStringAsFixed(2)}%";
   }
 }
