@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
@@ -16,6 +17,8 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> {
+  final GlobalKey<State<StatefulWidget>> _printKey = GlobalKey();
+
   List<Widget> _pages = [
     WelcomeScreen(),
     ReviewScreen(),
@@ -127,10 +130,18 @@ class _TabScreenState extends State<TabScreen> {
                 await Printing.layoutPdf(
                   onLayout: (format) async {
                     final pdf = pw.Document();
+                    final image = await WidgetWraper.fromKey(
+                      key: _printKey,
+                      pixelRatio: 2.0,
+                    );
                     pdf.addPage(
                       pw.Page(
                         pageFormat: format,
-                        build: (context) => pw.Placeholder(),
+                        build: (context) => pw.Center(
+                          child: pw.Expanded(
+                            child: pw.Image(image),
+                          ),
+                        ),
                       ),
                     );
                     return pdf.save();
@@ -140,7 +151,10 @@ class _TabScreenState extends State<TabScreen> {
             ),
         ],
       ),
-      body: _pages[_selectedPageIndex],
+      body: RepaintBoundary(
+        key: _printKey,
+        child: _pages[_selectedPageIndex],
+      ),
       bottomNavigationBar: BottomNavigationBar(
           onTap: _selectPage,
           backgroundColor: Theme.of(context).primaryColor,
