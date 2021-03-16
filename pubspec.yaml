@@ -34,6 +34,7 @@ dependencies:
   baseconvert: ^1.0.2
   percent_indicator: ^2.1.9+1
   path_provider: ^1.6.27
+  printing: ^4.1.0
 
 dev_dependencies:
   flutter_test:

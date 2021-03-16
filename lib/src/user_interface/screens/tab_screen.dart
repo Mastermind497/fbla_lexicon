@@ -1,8 +1,11 @@
-import 'package:fbla_lexicon/src/business_logic/models/question.dart';
-import 'package:fbla_lexicon/src/user_interface/theme/style.dart';
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
+import 'package:printing/printing.dart';
 
 import '../../business_logic/data/data_interacter.dart';
+import '../../business_logic/models/question.dart';
+import '../theme/style.dart';
 import 'review_screen.dart';
 import 'welcome_screen.dart';
 
@@ -111,6 +114,26 @@ class _TabScreenState extends State<TabScreen> {
                         ),
                       ],
                     );
+                  },
+                );
+              },
+            ),
+          if (_selectedPageIndex == _reviewIndex)
+            IconButton(
+              icon: Icon(Icons.print),
+              color: Colors.white,
+              tooltip: 'Print the Review',
+              onPressed: () async {
+                await Printing.layoutPdf(
+                  onLayout: (format) async {
+                    final pdf = pw.Document();
+                    pdf.addPage(
+                      pw.Page(
+                        pageFormat: format,
+                        build: (context) => pw.Placeholder(),
+                      ),
+                    );
+                    return pdf.save();
                   },
                 );
               },
