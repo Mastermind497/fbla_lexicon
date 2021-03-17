@@ -31,13 +31,13 @@ abstract class AnsweredQuestion extends RawQuestionData with EquatableMixin {
     final data = questionList.firstWhere((element) => element.id == parts[0]);
 
     if (data is MultipleChoiceQuestionData) {
-      if (parts[1] == '')
+      if (parts[1] == '' || parts[1].contains('answer'))
         data.selected = null;
       else
         data.selected = data.choices
             .firstWhere((element) => element.id.toString() == parts[1]);
     } else if (data is MultipleResponseQuestionData) {
-      if (parts[1] == '')
+      if (parts[1] == '' || parts[1].contains('answer'))
         data.selected = [];
       else
         data.selected = parts[1]
@@ -48,7 +48,9 @@ abstract class AnsweredQuestion extends RawQuestionData with EquatableMixin {
                 data.choices[1])
             .toList();
     } else if (data is TrueFalseQuestionData) {
-      data.selected = (parts[1] == '' ? null : parts[1] == 'true');
+      data.selected = (parts[1] == '' || parts[1].contains('answer')
+          ? null
+          : parts[1] == 'true');
     } else if (data is FreeResponseQuestionData) {
       data.selected = parts[1];
     }

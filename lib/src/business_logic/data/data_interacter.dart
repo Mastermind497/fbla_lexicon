@@ -66,7 +66,8 @@ Future<File> writeAnsweredQuestion(List<AnsweredQuestion> list) async {
 Future<List<String>> get answeredQuestionData async {
   try {
     final file = await answeredQuestionFile;
-    final string = await file.readAsString();
+    final string =
+        (await file.readAsString()).replaceAll(')', '').replaceAll('(', '');
     print(string.split('||'));
     return string.split('||');
   } catch (e) {

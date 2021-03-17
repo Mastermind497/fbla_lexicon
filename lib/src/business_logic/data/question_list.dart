@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
-
 import '../models/question.dart';
 import 'utils.dart';
 
